@@ -8,7 +8,8 @@ body {
     bottom: 0;
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color:  white;
+    font-family: "Roboto", sans-serif;
 }
 
 header {
@@ -34,14 +35,24 @@ main {
 .LeftSide {
     /* Set Position and size */
     flex: 1;
-    max-height: 100%;
-    overflow: scroll;
     /* Constraints */
     padding: 20px;
     /* Design */
-    background-color: red;
+    background-color: #FAF9F8;
+    /* Set Content Display */
+    display: flex;
+    overflow: auto;
+}
+
+.Scroll {
+    /* Set Position and size */
+    flex: 1;
+    height: 0px;
+    /* Design */
+    background-color: #FAF9F8;
     /* Set Content Display */
     display: grid;
+    gap: 20px;
     grid-template-columns: repeat(2, 1fr);
 }
 
@@ -49,34 +60,36 @@ main {
     display: none;
 }
 
-
-
 .RightSide {
     /* Set Position and size */
     flex: 1;
     /* Design */
-    background-color: yellow;
+    background-color: #FAF9F8;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .Element {
+    /* Set Position and size */
+    aspect-ratio: 1/1;
+    /* Constraints */
+    padding: 20px;
+    /* Design */
     background-color: white;
-    /* Borders */
-    height: 200px;
     border-radius: 20px;
-    border-width: 0.5px;
-    border-style: solid;
-    border-color: #E9E9E9;
+    border: 0.5px solid #E9E9E9;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+}
+
+.Titre {
+    color: #343434;
+    margin: 0;
+    padding: 0;
+}
+
+.Description {
+    color: #616161;
+    flex: auto;
+    margin: 0;
+    padding: 0;
 }
