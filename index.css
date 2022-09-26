@@ -1,0 +1,82 @@
+body {
+    position: fixed;
+    margin: 0px;
+    padding: 0px;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+header {
+    /* Set Position and size */
+    width: 100%;
+    flex: 0.1;
+    /* Design */
+    background-color: white;
+    border-bottom: 1px solid #E9E9E9;
+}
+
+main {
+    /* Set Position and size */
+    width: 100%;
+    flex: 1;
+    /* Design */
+    background-color: #FAF9F8;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: row;
+}
+
+.LeftSide {
+    /* Set Position and size */
+    flex: 1;
+    max-height: 100%;
+    overflow: scroll;
+    /* Constraints */
+    padding: 20px;
+    /* Design */
+    background-color: red;
+    /* Set Content Display */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.LeftSide::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+.RightSide {
+    /* Set Position and size */
+    flex: 1;
+    /* Design */
+    background-color: yellow;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.Element {
+    background-color: white;
+    /* Borders */
+    height: 200px;
+    border-radius: 20px;
+    border-width: 0.5px;
+    border-style: solid;
+    border-color: #E9E9E9;
+}
