@@ -79,12 +79,12 @@ CREATE TABLE `users` (
   `id_user` int NOT NULL AUTO_INCREMENT,
   `user_name` text NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `user_email` text NOT NULL ,
-  `user_phone` text NOT NULL ,
-  `user_birthdate` date DEFAULT NOT NULL,
-  `user_civility` text NOT NULL ,
-  `user_password` text NOT NULL ,
-  `user_firstname` text NOT NULL ,
+  `user_email` text NOT NULL,
+  `user_phone` text NOT NULL,
+  `user_birthdate` date NOT NULL,
+  `user_civility` text NOT NULL,
+  `user_password` text NOT NULL,
+  `user_firstname` text NOT NULL,
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
