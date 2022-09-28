@@ -1,6 +1,16 @@
 $.ajax({type:'GET', url:'api/advertisement/readAll.php', data:"", dataType: 'json', success: function(data) {
     for (const advertisement of data) {
-        $(".Scroll").append(`<div class="Element"><h3 class="Titre">${advertisement.advertisement_name}</h3><p class="Description">${advertisement.advertisement_description}</p><button class="mdc-button mdc-button--outlined mdc-button--icon-leading"><span class="mdc-button__ripple"></span><i class="material-icons mdc-button__icon" aria-hidden="true">read_more</i><span class="mdc-button__label">VOIR</span></button></div>`);
+        var Element = document.createElement("div");
+        Element.className = "Advertisement";
+        var Title = document.createElement("div");
+        Title.className = "AdvertisementTitle";
+        Title.innerHTML = advertisement.advertisement_name;
+        Element.appendChild(Title);
+        var Description = document.createElement("div");
+        Description.className = "AdvertisementDescription";
+        Description.innerHTML = advertisement.advertisement_description;
+        Element.appendChild(Description);
+        $(".Scroll").append(Element);
     }
 }, error: function() {
     console.log("Erreur");

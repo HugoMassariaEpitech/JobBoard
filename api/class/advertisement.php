@@ -10,8 +10,8 @@ class Advertisement {
     public $advertisement_type;
     public $advertisement_description;
     // Database connection
-    public function __construct($db){
-        $this->conn = $db;
+    public function __construct($config){
+        $this->conn = $config;
     }
     // Read all advertisements
     public function getAdvertisements(){
