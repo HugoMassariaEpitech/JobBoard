@@ -31,12 +31,9 @@ class User {
             $newUser->bindParam(5, htmlspecialchars(strip_tags($this->user_birthdate)));
             $newUser->bindParam(6, htmlspecialchars(strip_tags($this->user_civility)));
             $newUser->bindParam(7, htmlspecialchars(strip_tags($this->user_firstname)));
-
-            if($newUser->execute()){
-                return true;
-            }
-
-            return false;
+            $newUser->execute();
+            echo var_dump($newUser);    
+            return "User created.";
         } else {
             return "Email already used.";
         }
