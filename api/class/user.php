@@ -17,11 +17,11 @@ class User {
         $user = $this->connection->prepare("SELECT * FROM users WHERE user_email = ?");
         $user->bindParam("1", $this->user_email);
         $user->execute();
-        $result = $user -> fetchAll();
+        $result = $user->fetchAll();
         if (empty($result)) {
             $newUser = $this->connection->prepare("INSERT INTO users (id_user, user_name, user_password, user_email) VALUES (NULL, ?, ?, ?)");
             $newUser->bindParam(1, htmlspecialchars(strip_tags($this->user_name)));
-            $newUser->bindParam(2, htmlspecialchars(strip_tags($this->user_password)));
+            $newUser->bindParam(2, htmlspecialchars(strip_tags(password_hash($this->user_password, PASSWORD_BCRYPT))));
             $newUser->bindParam(3, htmlspecialchars(strip_tags($this->user_email)));
             if($newUser->execute()){
                 return true;
@@ -32,15 +32,22 @@ class User {
         }
     }
     // LogIn User
-    public function logInUser(){
-        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-            // Check if the user is already logged in, if yes then redirect him to welcome page
+    public function logInUser() {
+        session_start();
+        $user = $this->connection->prepare("SELECT * FROM users WHERE user_email = ?");
+        $user->bindParam("1", $this->user_email);
+        $user->execute();
+        $result = $user->fetch();
+        if (empty($result)) {
+            return "Email or password incorrect";
         } else {
-            $user = $this->connection->prepare("SELECT id_user, user_name, admin FROM users WHERE user_name = ?");
-            $user->bindParam("1", $this->user_name);
-            $user->execute();
-            $result = $user -> fetchAll();
-            return json_encode($result);
+            if (password_verify($this->user_password, $result["user_password"])) {
+                $_SESSION["id_user"] = $result["id_user"];
+                $_SESSION["logged"] = true;
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

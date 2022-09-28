@@ -4,9 +4,11 @@ include_once "../class/user.php";
 $config = new Database();
 $database = $config->getConnection();
 $class = new User($database);
-$user_name = $_POST["user_name"];
-if (isset($user_name) && ($user_name != "")) {
-    $class->user_name = $user_name;
+$user_email = $_POST["user_email"];
+$user_password = $_POST["user_password"];
+if (isset($user_email) && ($user_email != "") && isset($user_password) && ($user_password != "")) {
+    $class->user_email = $user_email;
+    $class->user_password = $user_password;
     http_response_code(200);
     echo $class->logInUser();
 } else {

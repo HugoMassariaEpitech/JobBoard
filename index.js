@@ -15,3 +15,9 @@ $.ajax({type:'GET', url:'api/advertisement/readAll.php', data:"", dataType: 'jso
 }, error: function() {
     console.log("Erreur");
 }});
+
+$.ajax({type:'POST', url:'api/user/logIn.php', data:"user_email=hugo.massaria@google.com&user_password=Hugo", success: function(data) {
+    console.log(data);
+}, error: function() {
+    console.log("Erreur");
+}});
