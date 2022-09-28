@@ -16,7 +16,7 @@ $.ajax({type:'GET', url:'api/advertisement/readAll.php', data:"", dataType: 'jso
     console.log("Erreur");
 }});
 
-$.ajax({type:'POST', url:'api/user/logIn.php', data:"user_email=hugo.massaria@google.com&user_password=Hugo", success: function(data) {
+$.ajax({type:'POST', url:'api/user/register.php', data:"user_email=hugo.massaria@hotmail.com&user_password=Hugo&user_name=Hugo&user_firstname=Hugo&user_phone=0606060606&user_birthdate=06.06.2022&user_civility=Mr", success: function(data) {
     console.log(data);
 }, error: function() {
     console.log("Erreur");
