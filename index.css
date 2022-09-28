@@ -41,7 +41,7 @@ header {
     /* Set Position and size */
     flex: 1;
     /* Design */
-    background-color: red;
+    background-color: #FAF9F8;
 }
 
 /* Advertisement List */
@@ -75,7 +75,7 @@ main {
     /* Constraints */
     padding: 20px;
     /* Design */
-    background-color: red;
+    background-color: white;
     border-radius: 20px;
     border: 0.5px solid #E9E9E9;
     /* Set Content Display */
@@ -85,7 +85,7 @@ main {
 
 .AdvertisementTitle {
     /* Design */
-    color: red;
+    color: #0E0E0E;
 }
 
 .AdvertisementDescription {
