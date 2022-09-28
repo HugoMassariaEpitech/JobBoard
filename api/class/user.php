@@ -43,6 +43,7 @@ class User {
         } else {
             if (password_verify($this->user_password, $result["user_password"])) {
                 $_SESSION["id_user"] = $result["id_user"];
+                $_SESSION["user_name"] = $result["user_name"];
                 $_SESSION["logged"] = true;
                 return true;
             } else {
