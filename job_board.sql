@@ -53,6 +53,7 @@ DROP TABLE IF EXISTS `companies`;
 CREATE TABLE `companies` (
   `id_company` int NOT NULL AUTO_INCREMENT,
   `company_name` text NOT NULL,
+  `company_description` text,
   PRIMARY KEY (`id_company`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -63,7 +64,7 @@ CREATE TABLE `companies` (
 
 LOCK TABLES `companies` WRITE;
 /*!40000 ALTER TABLE `companies` DISABLE KEYS */;
-INSERT INTO `companies` VALUES (1,'SNCF');
+INSERT INTO `companies` VALUES (1,'SNCF',NULL);
 /*!40000 ALTER TABLE `companies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,12 +79,11 @@ CREATE TABLE `users` (
   `id_user` int NOT NULL AUTO_INCREMENT,
   `user_name` text NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `email` text,
-  `phone` text,
-  `birthdate` date DEFAULT NULL,
-  `civilite` text,
-  `password` text,
-  `secret` text,
+  `user_email` text,
+  `user_phone` text,
+  `user_birthdate` date DEFAULT NULL,
+  `user_civility` text,
+  `user_password` text,
   `user_firstname` text,
   PRIMARY KEY (`id_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
@@ -95,7 +95,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Hugo Massaria',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,'Elies Hariate',1,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'Hugo Massaria',1,NULL,NULL,NULL,NULL,NULL,NULL),(2,'Elies Hariate',1,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -108,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-28  4:56:07
+-- Dump completed on 2022-09-28  5:31:51
