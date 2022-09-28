@@ -79,14 +79,14 @@ CREATE TABLE `users` (
   `id_user` int NOT NULL AUTO_INCREMENT,
   `user_name` text NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `user_email` text,
-  `user_phone` text,
-  `user_birthdate` date DEFAULT NULL,
-  `user_civility` text,
-  `user_password` text,
-  `user_firstname` text,
+  `user_email` text NOT NULL ,
+  `user_phone` text NOT NULL ,
+  `user_birthdate` date DEFAULT NOT NULL,
+  `user_civility` text NOT NULL ,
+  `user_password` text NOT NULL ,
+  `user_firstname` text NOT NULL ,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Hugo Massaria',1,NULL,NULL,NULL,NULL,NULL,NULL),(2,'Elies Hariate',1,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (4,'Hugo',0,'hugo.massaria@hotmail.com','0606060606','2006-06-20','Mr','$2y$10$n4V6j.O7ObKD3tR0qagCsOctFhBlUvBZtknFWwf/GwFe..LToGCDG','Hugo');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -108,4 +108,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-28  5:31:51
+-- Dump completed on 2022-09-28 10:14:00
