@@ -29,8 +29,12 @@ function addUser() {
 
 function logUser() {
     $.ajax({type:'POST', url:'../../api/user/logIn.php', data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}`, success: function(data) {
-        console.log(data);
+        if (data) {
+            window.location.href = "../../client/client.html";
+        } else {
+            console.log("Invalid email or password.");
+        }
     }, error: function() {
-        console.log("Erreur");
+        console.log("Missing email or password.");
     }});
 }

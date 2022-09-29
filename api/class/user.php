@@ -46,12 +46,12 @@ class User {
         $user->execute();
         $result = $user->fetch();
         if (empty($result)) {
-            return "Email or password incorrect";
+            return false;
         } else {
             if (password_verify($this->user_password, $result["user_password"])) {
                 $_SESSION["id_user"] = $result["id_user"];
                 $_SESSION["user_name"] = $result["user_name"];
-                $_SESSION["logged"] = true;
+                $_SESSION["logIn"] = true;
                 return true;
             } else {
                 return false;

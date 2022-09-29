@@ -10,7 +10,11 @@ if (isset($user_email) && ($user_email != "") && isset($user_password) && ($user
     $class->user_email = $user_email;
     $class->user_password = $user_password;
     http_response_code(200);
-    echo $class->logInUser();
+    if ($class->logInUser()) {
+        echo true;
+    } else {
+        echo false;
+    }
 } else {
     http_response_code(404);
 }
