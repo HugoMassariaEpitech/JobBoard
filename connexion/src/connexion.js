@@ -20,7 +20,7 @@ function changeFormToRegister() {
 }
 
 function addUser() {
-    $.ajax({type:'POST', url:'../../api/user/register.php', data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}&user_name=${$("input[name=Name]").val()}&user_firstname=${$("input[name=FirstName]").val()}&user_phone=${$("input[name=Phone]").val()}&user_birthdate=${$("input[name=Birthday]").val()}&user_civility=${$("input[name=Civility]").val()}`, success: function(data) {
+    $.ajax({type:"POST", url:"../../api/user/register.php", data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}&user_name=${$("input[name=Name]").val()}&user_firstname=${$("input[name=FirstName]").val()}&user_phone=${$("input[name=Phone]").val()}&user_birthdate=${$("input[name=Birthday]").val()}&user_civility=${$("input[name=Civility]").val()}`, success: function(data) {
         console.log(data);
     }, error: function() {
         console.log("Erreur");
@@ -28,7 +28,7 @@ function addUser() {
 }
 
 function logUser() {
-    $.ajax({type:'POST', url:'../../api/user/logIn.php', data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}`, success: function(data) {
+    $.ajax({type:"POST", url:"../../api/user/logIn.php", data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}`, success: function(data) {
         if (data) {
             window.location.href = "../../client/client.html";
         } else {

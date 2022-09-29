@@ -1,4 +1,5 @@
 <?php
+include_once "../class/session.php";
 class User {
     // Connection
     private $connection;
@@ -14,6 +15,15 @@ class User {
     // Database connection
     public function __construct($config){
         $this->connection = $config;
+    }
+    // Start Session
+    public function startSession() {
+        session_start();
+        if (isset($_SESSION["logIn"])) {
+            return true;
+        } else {
+            return false;
+        }
     }
     // Register User
     public function registerUser(){
@@ -56,6 +66,15 @@ class User {
             } else {
                 return false;
             }
+        }
+    }
+    // LogOut User
+    public function logOutUser() {
+        $session = new Session();
+        if ($session->endSession()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

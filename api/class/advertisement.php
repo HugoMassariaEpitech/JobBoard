@@ -9,6 +9,7 @@ class Advertisement {
     public $advertisement_location;
     public $advertisement_type;
     public $advertisement_description;
+    public $advertisement_details;
     // Database connection
     public function __construct($config){
         $this->connection = $config;
