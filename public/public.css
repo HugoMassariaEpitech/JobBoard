@@ -126,15 +126,16 @@ main {
     flex-direction: column;
 }
 
-.AdvertisementTitle {
+.Title {
     /* Design */
-    color: #0E0E0E;
+    color: red;
 }
 
-.AdvertisementDescription {
+.Description {
     /* Design */
     color: #616161;
     flex: auto;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
