@@ -3,6 +3,7 @@ $(".SendButton").click(addUser);
 
 function changeFormToLog() {
     $(".FormElement:lt(5)").hide();
+    $(".FormElement:last").hide();
     $(".LogButton").html("Inscription");
     $(".LogButton").off("click");
     $(".LogButton").click(changeFormToRegister);
@@ -12,6 +13,7 @@ function changeFormToLog() {
 
 function changeFormToRegister() {
     $(".FormElement:lt(5)").show();
+    $(".FormElement:last").show();
     $(".LogButton").html("LogIn");
     $(".LogButton").off("click");
     $(".LogButton").click(changeFormToLog);
@@ -20,7 +22,7 @@ function changeFormToRegister() {
 }
 
 function addUser() {
-    $.ajax({type:"POST", url:"../../api/user/register.php", data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}&user_name=${$("input[name=Name]").val()}&user_firstname=${$("input[name=FirstName]").val()}&user_phone=${$("input[name=Phone]").val()}&user_birthdate=${$("input[name=Birthday]").val()}&user_civility=${$("input[name=Civility]").val()}`, success: function(data) {
+    $.ajax({type:"POST", url:"../../api/user/register.php", data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}&user_name=${$("input[name=Name]").val()}&user_firstname=${$("input[name=FirstName]").val()}&user_phone=${$("input[name=Phone]").val()}&user_birthdate=${$("input[name=Birthday]").val()}&user_civility=${$("input[name=Civility]").val()}&user_confirmpass=${$("input[name=Password2]").val()}`, success: function(data) {
         console.log(data);
     }, error: function() {
         console.log("Erreur");

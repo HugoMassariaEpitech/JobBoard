@@ -12,6 +12,9 @@ class User {
     public $user_phone;
     public $user_birthdate;
     public $user_civility;
+    //Check Password Validity
+    public $answer;
+
     // Database connection
     public function __construct($config){
         $this->connection = $config;
@@ -69,7 +72,8 @@ class User {
         }
     }
     // LogOut User
-    public function logOutUser() {
+    public function logOutUser()
+    {
         $session = new Session();
         if ($session->endSession()) {
             return true;
