@@ -14,33 +14,45 @@ class Advertisement {
     public function __construct($config){
         $this->connection = $config;
     }
-    // Read all advertisements
-    public function getAdvertisements(){
+    // Read all advertisements OK
+    public function getAdvertisements() {
         $advertisements = $this->connection->prepare("SELECT * FROM advertisements");
-        $advertisements->execute();
-        $result = $advertisements -> fetchAll();
-        return json_encode($result);
+        if ($advertisements->execute()) {
+            $result = $advertisements -> fetchAll();
+            return array("response" => true, "result" => $result);
+        } else {
+            return array("response" => false);
+        }
     }
-    // Read one advertisement
+    // Read one advertisement OK
     public function getSingleAdvertisement(){
         $advertisement = $this->connection->prepare("SELECT * FROM advertisements WHERE id_advertisement = ?");
         $advertisement->bindParam("1", $this->id_advertisement);
-        $advertisement->execute();
-        $result = $advertisement -> fetchAll();
-        return json_encode($result);
+        if ($advertisement->execute()) {
+            $result = $advertisement -> fetchAll();
+            return array("response" => true, "result" => $result);
+        } else {
+            return array("response" => false);
+        }
     }
     // Create an advertisement
-    public function createAdvertisement(){
-        $advertisement = $this->connection->prepare("INSERT INTO advertisements (id_advertisement, advertisement_name, advertisement_company, advertisement_location, advertisement_type, advertisement_description) VALUES (NULL, ?, ?, ?, ?, ?)");
-        $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->advertisement_name)));
-        $advertisement->bindParam(2, htmlspecialchars(strip_tags($this->advertisement_company)));
-        $advertisement->bindParam(3, htmlspecialchars(strip_tags($this->advertisement_location)));
-        $advertisement->bindParam(4, htmlspecialchars(strip_tags($this->advertisement_type)));
-        $advertisement->bindParam(5, htmlspecialchars(strip_tags($this->advertisement_description)));
-        if($advertisement->execute()){
-            return true;
+    public function createAdvertisement() {
+        if (isset($_SESSION["role"]) && $_SESSION["role"] == "admin") {
+            $advertisement = $this->connection->prepare("INSERT INTO advertisements (id_advertisement, advertisement_name, advertisement_company, advertisement_location, advertisement_type, advertisement_description, advertisement_details) VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+            $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->advertisement_name)));
+            $advertisement->bindParam(2, htmlspecialchars(strip_tags($this->advertisement_company)));
+            $advertisement->bindParam(3, htmlspecialchars(strip_tags($this->advertisement_location)));
+            $advertisement->bindParam(4, htmlspecialchars(strip_tags($this->advertisement_type)));
+            $advertisement->bindParam(5, htmlspecialchars(strip_tags($this->advertisement_description)));
+            $advertisement->bindParam(6, htmlspecialchars(strip_tags($this->advertisement_details)));
+            if($advertisement->execute()){
+                return array("response" => true);
+            } else {
+                return array("response" => false, "access" => true);
+            }
+        } else {
+            return array("response" => false, "access" => false);
         }
-        return false;
     }
     // Update an advertisement
     public function updateAdvertisement(){
