@@ -1,5 +1,9 @@
 $(".LogButton").click(changeFormToLog);
-$(".SendButton").click(addUser);
+$(".SendButton").submit(function(event) {
+    event.preventDefault();
+    const Data = $(".Form").serializeArray();
+    console.log(Data);
+});
 
 function changeFormToLog() {
     $(".FormElement:lt(5)").hide();

@@ -10,7 +10,7 @@
 <body>
   <main>
     <div class="Register">
-      <form class="Form">
+      <form class="Form" id="Form">
         <div class="FormElement">
           <label for="FirstName">Civility</label>
           <div class="Radio">
@@ -42,16 +42,16 @@
         </div>
         <div class="FormElement">
           <label for="Password">Password</label>
-          <input type="password" name="Password" id="Password" pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
+          <input type="password" name="Password" id="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
         </div>
         <div class="FormElement">
           <label for="Password2">Confirm your password</label>
-          <input type="password" name="Password2" id="Password2" pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
+          <input type="password" name="Password2" id="Password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
         </div>
       </form>
       <div class="Footer">
         <button class="LogButton">LogIn</button>
-        <button class="SendButton">Send</button>
+        <button class="SendButton" type="submit" form="Form">Send</button>
       </div>
     </div>
   </main>
