@@ -42,11 +42,11 @@
         </div>
         <div class="FormElement">
           <label for="Password">Password</label>
-          <input type="password" name="Password" id="Password" required>
+          <input type="password" name="Password" id="Password" pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
         </div>
         <div class="FormElement">
           <label for="Password2">Confirm your password</label>
-          <input type="password" name="Password2" id="Password2" required>
+          <input type="password" name="Password2" id="Password2" pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$" required>
         </div>
       </form>
       <div class="Footer">
