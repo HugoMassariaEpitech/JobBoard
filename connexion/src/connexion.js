@@ -1,8 +1,9 @@
 $(".LogButton").click(changeFormToLog);
 $(".Form").submit(function(event) {
     event.preventDefault();
-    const Data = $(".Form").serializeArray();
-    addUser(Data[0].value, Data[1].value, Data[2].value, Data[3].value, Data[4].value, Data[5].value, Data[6].value, Data[7].value);
+    console.log("oui");
+    // const Data = $(".Form").serializeArray();
+    // addUser(Data[0].value, Data[1].value, Data[2].value, Data[3].value, Data[4].value, Data[5].value, Data[6].value, Data[7].value);
 });
 
 function changeFormToLog() {

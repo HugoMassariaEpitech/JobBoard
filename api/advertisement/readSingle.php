@@ -9,11 +9,10 @@ if (isset($id_advertisement) && ($id_advertisement != "")) {
     $class->id_advertisement = $id_advertisement;
     $request = $class->getSingleAdvertisement();
     if ($request["response"]) {
+        http_response_code(200);
         if (empty($request["result"])) {
-            http_response_code(204);
             echo json_encode(array("response" => true, "message" => "Ressource not found."));
         } else {
-            http_response_code(200);
             echo json_encode(array("response" => true, "message" => $request["result"]));
         }
     } else {

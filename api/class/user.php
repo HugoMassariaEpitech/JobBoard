@@ -29,7 +29,7 @@ class User {
         }
     }
     // Register User
-    public function registerUser(){
+    public function registerUser() {
         session_start();
         $user = $this->connection->prepare("SELECT * FROM users WHERE user_email = ?");
         $user->bindParam("1", $this->user_email);
