@@ -1,8 +1,8 @@
 $(".LogButton").click(changeFormToLog);
-$(".SendButton").submit(function(event) {
+$(".Form").submit(function(event) {
     event.preventDefault();
     const Data = $(".Form").serializeArray();
-    console.log(Data);
+    addUser(Data[0].value, Data[1].value, Data[2].value, Data[3].value, Data[4].value, Data[5].value, Data[6].value, Data[7].value);
 });
 
 function changeFormToLog() {
@@ -25,8 +25,8 @@ function changeFormToRegister() {
     $(".SendButton").click(addUser);
 }
 
-function addUser() {
-    $.ajax({type:"POST", url:"../../api/user/register.php", data:`user_email=${$("input[name=Email]").val()}&user_password=${$("input[name=Password]").val()}&user_name=${$("input[name=Name]").val()}&user_firstname=${$("input[name=FirstName]").val()}&user_phone=${$("input[name=Phone]").val()}&user_birthdate=${$("input[name=Birthday]").val()}&user_civility=${$("input[name=Civility]").val()}&user_confirmpass=${$("input[name=Password2]").val()}`, success: function(data) {
+function addUser(Civility, FirstName, Name, Birthday, Phone, Email, Password, Password2) {
+    $.ajax({type:"POST", url:"../../api/user/register.php", data:`user_email=${Email}&user_password=${Password}&user_name=${Name}&user_firstname=${FirstName}&user_phone=${Phone}&user_birthdate=${Birthday}&user_civility=${Civility}&user_confirmpass=${Password2}`, success: function(data) {
         console.log(data);
     }, error: function() {
         console.log("Erreur");

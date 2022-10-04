@@ -15,7 +15,7 @@ $user_firstname = $_POST["user_firstname"];
 $user_confirmpass = $_POST["user_confirmpass"];
 $currentdate = date('Y-m-d');
 
-$pattern = "'/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z]{8,18}/'";
+$pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}";
 $current = new DateTime($currentdate);
 $entry = new DateTime($user_birthdate);
 
