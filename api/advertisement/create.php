@@ -9,7 +9,6 @@ $advertisement_company = $_POST["advertisement_company"];
 $advertisement_location = $_POST["advertisement_location"];
 $advertisement_type = $_POST["advertisement_type"];
 $advertisement_description = $_POST["advertisement_description"];
-echo var_dump($_SESSION);
 if (isset($advertisement_name) && ($advertisement_name != "") && isset($advertisement_company) && ($advertisement_company != "") && isset($advertisement_location) && ($advertisement_location != "") && isset($advertisement_type) && ($advertisement_type != "") && isset($advertisement_description) && ($advertisement_description != "")) {
     $class->advertisement_name = $advertisement_name;
     $class->advertisement_company = $advertisement_company;
@@ -20,7 +19,7 @@ if (isset($advertisement_name) && ($advertisement_name != "") && isset($advertis
     $request = $class->createAdvertisement();
     if ($request["response"]) {
         http_response_code(200);
-        echo json_encode(array("response" => true));
+        echo json_encode(array("response" => true, "message" => $request["access"]));
     } else {
         if ($request["access"]) {
             http_response_code(500);

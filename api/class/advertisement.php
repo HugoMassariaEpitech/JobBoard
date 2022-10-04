@@ -35,21 +35,15 @@ class Advertisement {
             return array("response" => false);
         }
     }
-    // Create an advertisement
+    // Create an advertisement OK
     public function createAdvertisement() {
-        if (isset($_SESSION["role"]) && $_SESSION["role"] == "admin") {
-            $advertisement = $this->connection->prepare("INSERT INTO advertisements (id_advertisement, advertisement_name, advertisement_company, advertisement_location, advertisement_type, advertisement_description, advertisement_details) VALUES (NULL, ?, ?, ?, ?, ?, ?)");
-            $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->advertisement_name)));
-            $advertisement->bindParam(2, htmlspecialchars(strip_tags($this->advertisement_company)));
-            $advertisement->bindParam(3, htmlspecialchars(strip_tags($this->advertisement_location)));
-            $advertisement->bindParam(4, htmlspecialchars(strip_tags($this->advertisement_type)));
-            $advertisement->bindParam(5, htmlspecialchars(strip_tags($this->advertisement_description)));
-            $advertisement->bindParam(6, htmlspecialchars(strip_tags($this->advertisement_details)));
-            if($advertisement->execute()){
-                return array("response" => true);
-            } else {
-                return array("response" => false, "access" => true);
-            }
+        $headers = apache_request_headers();
+        $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
+	    $payload = base64_decode($tokenParts[1]);
+        $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
+        $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
+        if ($base64UrlSignature == $tokenParts[2]) {
+            return array("response" => true, "access" => gettype(json_decode($payload)));
         } else {
             return array("response" => false, "access" => false);
         }
@@ -86,6 +80,25 @@ class Advertisement {
             return true;
         }
         return false;
+    }
+
+    public function Test(){
+        if (isset($_SESSION["role"]) && $_SESSION["role"] == "admin") {
+            $advertisement = $this->connection->prepare("INSERT INTO advertisements (id_advertisement, advertisement_name, advertisement_company, advertisement_location, advertisement_type, advertisement_description, advertisement_details) VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+            $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->advertisement_name)));
+            $advertisement->bindParam(2, htmlspecialchars(strip_tags($this->advertisement_company)));
+            $advertisement->bindParam(3, htmlspecialchars(strip_tags($this->advertisement_location)));
+            $advertisement->bindParam(4, htmlspecialchars(strip_tags($this->advertisement_type)));
+            $advertisement->bindParam(5, htmlspecialchars(strip_tags($this->advertisement_description)));
+            $advertisement->bindParam(6, htmlspecialchars(strip_tags($this->advertisement_details)));
+            if($advertisement->execute()){
+                return array("response" => true);
+            } else {
+                return array("response" => false, "access" => true);
+            }
+        } else {
+            return array("response" => false, "access" => false);
+        }
     }
 }
 ?>
