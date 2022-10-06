@@ -2,19 +2,30 @@
 class Session {
     // Start Session
     public function startSession() {
-        session_start();
-        if (isset($_SESSION["logIn"])) {
-            return true;
+        if (isset($_COOKIE["jwt"])) {
+
+            $headers = apache_request_headers();
+            $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
+            $payload = base64_decode($tokenParts[1]);
+            $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
+            $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
+
+            if($payload == ""){
+                return false;
+            }
+            else{
+                return true;
+            }
         } else {
             return false;
         }
     }
     // End Session
     public function endSession() {
-        session_start();
-        session_unset();
-        session_destroy();
-        if (!isset($_SESSION["logIn"])) {
+        if (isset($_COOKIE['jwt'])) {
+            unset($_COOKIE['jwt']);
+            setcookie("jwt", time() - 3600);
+            echo var_dump($_COOKIE);
             return true;
         } else {
             return false;

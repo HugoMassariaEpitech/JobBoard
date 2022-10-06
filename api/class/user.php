@@ -19,7 +19,7 @@ class User {
         if ($user->execute()) {
             $result = $user->fetch();
             if (empty($result)) {
-                return array("response" => true);
+                return array("response" => false);
             } else {
                 if (password_verify($this->user_password, $result["user_password"])) {
                     $header = json_encode(["tokenType" => "JWT", "algorithm" => "HS256"]);
@@ -29,6 +29,7 @@ class User {
                     $signature = hash_hmac("sha256", $base64UrlHeader . "." . $base64UrlPayload, "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
                     $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
                     $JWT = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+                    setcookie('jwt', $JWT,"/");
                     return array("response" => true, "result" => $JWT);
                 } else {
                     return array("response" => true);
@@ -97,20 +98,13 @@ class User {
     public function __construct($config){
         $this->connection = $config;
     }
-    // Start Session
-    public function startSession() {
-        session_start();
-        if (isset($_SESSION["logIn"])) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+
     // LogOut User
     public function logOutUser()
     {
         $session = new Session();
         if ($session->endSession()) {
+
             return true;
         } else {
             return false;
