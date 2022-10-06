@@ -25,7 +25,6 @@ class Session {
         if (isset($_COOKIE['jwt'])) {
             unset($_COOKIE['jwt']);
             setcookie("jwt", time() - 3600);
-            echo var_dump($_COOKIE);
             return true;
         } else {
             return false;
