@@ -16,7 +16,7 @@ if (isset($user_email) && ($user_email != "") && isset($user_password) && ($user
         if (empty($request["result"])) {
             echo json_encode(array("response" => false, "message" => "Request failed. Please check params."));
         } else {
-            echo json_encode(array("response" => true, "message" => $request["result"]));
+            echo json_encode(array("response" => true, "message" => $request["result"], "admin" => $request["admin"]));
         }
     } else {
         http_response_code(500);

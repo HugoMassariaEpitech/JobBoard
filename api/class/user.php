@@ -24,13 +24,21 @@ class User {
                 if (password_verify($this->user_password, $result["user_password"])) {
                     $header = json_encode(["tokenType" => "JWT", "algorithm" => "HS256"]);
                     $payload = json_encode(["id_user" => $result["id_user"], "user_name" => $result["user_name"], "admin" => $result["admin"], "user_email" => $result["user_email"], "user_phone" => $result["user_phone"], "user_birthdate" => $result["user_birthdate"], "user_civility" => $result["user_civility"], "user_firstname" => $result["user_firstname"]]);
+                    $infos = json_decode($payload);
+                    $admin = "";
+                    if($infos->admin == "0"){
+                        $admin = "non";
+                    }
+                    else{
+                        $admin = "admin";
+                    }
                     $base64UrlHeader = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($header));
                     $base64UrlPayload = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($payload));
                     $signature = hash_hmac("sha256", $base64UrlHeader . "." . $base64UrlPayload, "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
                     $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
                     $JWT = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
                     setcookie('jwt', $JWT,"/");
-                    return array("response" => true, "result" => $JWT);
+                    return array("response" => true, "result" => $JWT, "admin" => $admin);
                 } else {
                     return array("response" => true);
                 }

@@ -9,7 +9,6 @@ class Session {
             $payload = base64_decode($tokenParts[1]);
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
-
             if($payload == ""){
                 return false;
             }
