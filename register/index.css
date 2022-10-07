@@ -32,23 +32,7 @@ body {
     gap: 20px;
 }
 
-.material-symbols-rounded {
-    padding-right: 5px;
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
-}
-
-.Title {
-    /* Design */
-    color: black;
-    font-weight: 500;
-    font-size: 20px;
-}
-
-.Form {
+.Register > .Form {
     /* Set Position and size */
     flex: auto;
     /* Design */
@@ -59,7 +43,7 @@ body {
     gap: 10px;
 }
 
-.FormElement {
+.Register > .Form > .FormElement {
     /* Design */
     background-color: white;
     /* Set Content Display */
@@ -67,7 +51,7 @@ body {
     flex-direction: column;
 }
 
-.FormElement > label {
+.Register > .Form > .FormElement > label {
     /* Constraints */
     padding: 5px;
     /* Design */
@@ -76,7 +60,7 @@ body {
     font-size: 12px;
 }
 
-.FormElement > input {
+.Register > .Form > .FormElement > input {
     /* Constraints */
     padding: 10px;
     /* Design */
@@ -88,7 +72,7 @@ body {
     font-size: 10px;
 }
 
-.Radio {
+.Register > .Form > .FormElement > .Radio {
     /* Constraints */
     padding: 5px 0px 0px 5px;
     /* Set Content Display */
@@ -96,14 +80,14 @@ body {
     gap: 5px;
 }
 
-.Radio > label {
+.Register > .Form > .FormElement > .Radio > label {
     /* Design */
     color: black;
     font-weight: 300;
     font-size: 12px;
 }
 
-.Radio > input[type="radio"] {
+.Register > .Form > .FormElement > .Radio > input {
     /* Set Position and size */
     width: 12px;
     height: 12px;
@@ -114,42 +98,31 @@ body {
     border: 0.5px solid #E9E9E9;
     background-color: white;
     border-radius: 2px;
+    cursor: pointer;
 }
 
-.Radio > input[type="radio"]:checked {
-    /* Set Position and size */
-    width: 12px;
-    height: 12px;
-    /* Constraints */
-    margin: 0;
+.Register > .Form > .FormElement > .Radio > input[type="radio"]:checked {
     /* Design */
-    appearance: none;
-    border: 0.5px solid #E9E9E9;
     background-color: #1A73E8;
-    border-radius: 2px;
 }
 
-.Footer {
-    /* Set Content Display */
-    display: flex;
-}
-
-.LogButton {
-    /* Set Position and size */
-    width: fit-content;
+.Register > .Form > .FormMessage {
     /* Constraints */
-    padding: 10px 10px 10px 20px;
-    margin-left: auto;
+    padding-left: 5px;
     /* Design */
-    border: none;
+    color: red;
     background-color: white;
-    border-radius: 20px;
-    color: #1A73E8;
     font-weight: 300;
     font-size: 12px;
 }
 
-.SendButton {
+.Register > .Footer {
+    /* Set Content Display */
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.Register > .Footer > button {
     /* Set Position and size */
     width: fit-content;
     /* Constraints */
@@ -159,6 +132,13 @@ body {
     background-color: #1A73E8;
     border-radius: 20px;
     color: white;
-    font-weight: 500;
+    font-weight: 300;
     font-size: 12px;
+    cursor: pointer;
+}
+
+.Register > .Footer > button:last-child {
+    /* Design */
+    background-color: white;
+    color: #1A73E8;
 }

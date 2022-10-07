@@ -1,4 +1,5 @@
 <?php
+/* OK */
 include_once "../config/database.php";
 include_once "../class/advertisement.php";
 $config = new Database();
@@ -10,6 +11,7 @@ $advertisement_company = $_POST["advertisement_company"];
 $advertisement_location = $_POST["advertisement_location"];
 $advertisement_type = $_POST["advertisement_type"];
 $advertisement_description = $_POST["advertisement_description"];
+$advertisement_salary = $_POST["advertisement_salary"];
 if (isset($id_advertisement) && ($id_advertisement != "") && isset($advertisement_name) && ($advertisement_name != "") && isset($advertisement_company) && ($advertisement_company != "") && isset($advertisement_location) && ($advertisement_location != "") && isset($advertisement_type) && ($advertisement_type != "") && isset($advertisement_description) && ($advertisement_description != "")) {
     $class->id_advertisement = $id_advertisement;
     $class->advertisement_name = $advertisement_name;
@@ -17,10 +19,22 @@ if (isset($id_advertisement) && ($id_advertisement != "") && isset($advertisemen
     $class->advertisement_location = $advertisement_location;
     $class->advertisement_type = $advertisement_type;
     $class->advertisement_description = $advertisement_description;
-    http_response_code(200);
-    echo $class->updateAdvertisement();
+    $class->advertisement_salary = $advertisement_salary;
+    $request = $class->updateAdvertisement();
+    if ($request["response"]) {
+        http_response_code(200);
+        echo json_encode(array("response" => true));
+    } else {
+        if ($request["access"]) {
+            http_response_code(500);
+            echo json_encode(array("response" => false, "message" => "Request failed."));
+        } else {
+            http_response_code(403);
+            echo json_encode(array("response" => false, "message" => "Request failed. Access forbidden."));
+        }
+    }
 } else {
-    http_response_code(404);
-    echo json_encode("Missing data. Advertisement can't be updated.");
+    http_response_code(400);
+    echo json_encode(array("response" => false, "message" => "Request failed. Please check params."));
 }
 ?>
