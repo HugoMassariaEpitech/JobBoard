@@ -29,7 +29,7 @@ if (isset($user_civility) && ($user_civility != "") && isset($user_firstname) &&
         if ($request["response"]) {
             http_response_code(200);
             if ($request["registered"]) {
-                setcookie("token", $request["result"], time()+3600, "", "", true, true);
+                setcookie("token", $request["result"], time() + 3600, "", "", true, true);
                 echo json_encode(array("response" => true));
             } else {
                 echo json_encode(array("response" => false, "message" => "Request failed. Email already used."));
@@ -43,4 +43,3 @@ if (isset($user_civility) && ($user_civility != "") && isset($user_firstname) &&
     http_response_code(400);
     echo json_encode(array("response" => false, "message" => "Request failed. Please check params."));
 }
-?>

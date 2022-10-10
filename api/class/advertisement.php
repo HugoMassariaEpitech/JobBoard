@@ -1,5 +1,6 @@
 <?php
-class Advertisement {
+class Advertisement
+{
     // Connection
     private $connection;
     // Columns
@@ -11,35 +12,39 @@ class Advertisement {
     public $advertisement_description;
     public $advertisement_salary;
     // Database connection
-    public function __construct($config){
+    public function __construct($config)
+    {
         $this->connection = $config;
     }
     // Read all advertisements OK
-    public function getAdvertisements() {
+    public function getAdvertisements()
+    {
         $advertisements = $this->connection->prepare("SELECT * FROM advertisements");
         if ($advertisements->execute()) {
-            $result = $advertisements -> fetchAll();
+            $result = $advertisements->fetchAll();
             return array("response" => true, "result" => $result);
         } else {
             return array("response" => false);
         }
     }
     // Read one advertisement OK
-    public function getSingleAdvertisement(){
+    public function getSingleAdvertisement()
+    {
         $advertisement = $this->connection->prepare("SELECT * FROM advertisements WHERE id_advertisement = ?");
         $advertisement->bindParam("1", $this->id_advertisement);
         if ($advertisement->execute()) {
-            $result = $advertisement -> fetchAll();
+            $result = $advertisement->fetchAll();
             return array("response" => true, "result" => $result);
         } else {
             return array("response" => false);
         }
     }
     // Create an advertisement OK
-    public function createAdvertisement() {
+    public function createAdvertisement()
+    {
         $headers = apache_request_headers();
         $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
-	    $payload = base64_decode($tokenParts[1]);
+        $payload = base64_decode($tokenParts[1]);
         $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
         $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
         if ($base64UrlSignature == $tokenParts[2]) {
@@ -64,10 +69,11 @@ class Advertisement {
         }
     }
     // Update an advertisement OK - when ressource is not found ?
-    public function updateAdvertisement(){
+    public function updateAdvertisement()
+    {
         $headers = apache_request_headers();
         $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
-	    $payload = base64_decode($tokenParts[1]);
+        $payload = base64_decode($tokenParts[1]);
         $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
         $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
         if ($base64UrlSignature == $tokenParts[2]) {
@@ -93,10 +99,11 @@ class Advertisement {
         }
     }
     // Delete an advertisement OK - when ressource is not found ?
-    public function deleteAdvertisement(){
+    public function deleteAdvertisement()
+    {
         $headers = apache_request_headers();
         $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
-	    $payload = base64_decode($tokenParts[1]);
+        $payload = base64_decode($tokenParts[1]);
         $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
         $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
         if ($base64UrlSignature == $tokenParts[2]) {
@@ -122,16 +129,16 @@ class Advertisement {
 
 
 
-    
+
     //Search an advertisement
-    public function searchAdvertisement(){
-        $advertisement_name_search = "%".$this->advertisement_name."%";
+    public function searchAdvertisement()
+    {
+        $advertisement_name_search = "%" . $this->advertisement_name . "%";
         $advertisement = $this->connection->prepare("SELECT FROM advertisements WHERE advertisement_name LIKE ?");
-        $advertisement->bindParam(1,htmlspecialchars(strip_tags($advertisement_name_search)));
-        if($advertisement->execute()){
+        $advertisement->bindParam(1, htmlspecialchars(strip_tags($advertisement_name_search)));
+        if ($advertisement->execute()) {
             return true;
         }
         return false;
     }
 }
-?>
