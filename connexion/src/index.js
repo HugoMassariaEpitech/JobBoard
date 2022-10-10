@@ -2,13 +2,17 @@
 
 $.ajax({type:"POST", url:"../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
-        window.location = "../../annonces";
+        if (parseInt(data.admin)) {
+            window.location = "../../admin";
+        } else {
+            window.location = "../../annonces";
+        }
     }
 }, error: function(data) {
 
 }});
 
-// Register Button
+// LogIn Button
 
 $(".Form").submit(function() {
     const Data = $(".Form").serializeArray();
@@ -20,8 +24,7 @@ function logIn(email, password) {
     $.ajax({type:"POST", url:"../../api/user/logIn.php", data:`user_email=${email}&user_password=${password}`, dataType: "json", success: function(data) {
         if (data.response) {
             if (parseInt(data.admin)) {
-                console.log(data.message);
-                console.log("admin");
+                window.location = "../../admin";
             } else {
                 window.location = "../../annonces";
             }
@@ -33,7 +36,7 @@ function logIn(email, password) {
     }});
 }
 
-// LogIn Button
+// Register Button
 
 $(".Footer").find("button").not(":first-child").click(function() {
     window.location = "../../register";

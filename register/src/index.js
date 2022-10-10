@@ -2,7 +2,11 @@
 
 $.ajax({type:"POST", url:"../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
-        window.location = "../../annonces";
+        if (parseInt(data.admin)) {
+            window.location = "../../admin";
+        } else {
+            window.location = "../../annonces";
+        }
     }
 }, error: function(data) {
 
@@ -19,7 +23,7 @@ $(".Form").submit(function() {
 function register(civility, firstname, name, birthdate, phone, email, password, passwordConfirmation) {
     $.ajax({type:"POST", url:"../../api/user/register.php", data:`user_civility=${civility}&user_firstname=${firstname}&user_name=${name}&user_birthdate=${birthdate}&user_phone=${phone}&user_email=${email}&user_password=${password}&password_confirmation=${passwordConfirmation}`, dataType: "json", success: function(data) {
         if (data.response) {
-            console.log("Registered.");
+            window.location = "../../annonces";
         } else {
             $(".Form").find(".FormMessage").html(data.message);
         }

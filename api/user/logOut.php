@@ -5,6 +5,6 @@ include_once "../class/user.php";
 $config = new Database();
 $database = $config->getConnection();
 $class = new User($database);
-$request = $class->checkLogUser();
-echo json_encode(array("response" => $request["response"], "admin" => get_object_vars($request["result"])["admin"]));
+http_response_code(200);
+setcookie("token", "", -1, "", "", true, true);
 ?>

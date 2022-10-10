@@ -1,0 +1,73 @@
+body {
+    /* Set Position and size */
+    position: fixed;
+    /* Constraints */
+    margin: 0px;
+    padding: 0px;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    /* Design */
+    background-color:  #F4F5F7;
+    font-family: "Roboto", sans-serif;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    /* Set Position and size */
+    flex: 0.1;
+    /* Constraints */
+    padding: 0 40px 0 40px;
+    /* Design */
+    background-color: white;
+    border-bottom: 1px solid #E9E9E9;
+    /* Set Content Display */
+    display: flex;
+    align-items: center;
+}
+
+header > button {
+    /* Set Position and size */
+    width: fit-content;
+    height: fit-content;
+    /* Constraints */
+    padding: 10px 20px 10px 20px;
+    margin-left: auto;
+    /* Design */
+    border: none;
+    background-color: #1A73E8;
+    border-radius: 20px;
+    color: white;
+    font-weight: 500;
+    font-size: 12px;
+    -webkit-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+main > .LeftSide {
+    /* Set Position and size */
+    flex: 1;
+    /* Constraints */
+    padding: 20px;
+    /* Design */
+    background-color: #F4F5F7;
+    /* Set Content Display */
+    display: flex;
+    overflow: auto;
+}
+
+main > .LeftSide::-webkit-scrollbar {
+    display: none;
+}
+
+main > .RightSide {
+    /* Set Position and size */
+    flex: 1;
+    /* Design */
+    background-color: #F4F5F7;
+}
