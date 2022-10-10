@@ -11,7 +11,7 @@ $user = new User($database);
 $request = $user->checkLogUser();
 
 
-if($request["response"]){
+if ($request["response"]) {
 
     $tokenParts = explode(".", $_COOKIE["token"]);
     $payload = base64_decode($tokenParts[1]);
@@ -24,16 +24,13 @@ if($request["response"]){
     $class->user_name = get_object_vars($decode)["user_name"];
 
 
-    if($class->createApply()){
+    if ($class->createApply()) {
         http_response_code(200);
         echo json_encode(array("response" => true, "message" => "created"));
-    }else{
+    } else {
         echo json_encode(array("response" => false, "message" => "not created"));
     }
-
-
-
-}else {
+} else {
 
     $class->user_email = $_POST["user_email"];
     $class->id_advertisement = $_POST["id_advertisement"];
@@ -45,7 +42,5 @@ if($request["response"]){
         echo json_encode(array("response" => true, "message" => "created"));
     } else {
         echo json_encode(array("response" => false, "message" => "not created"));
-
     }
 }
-?>

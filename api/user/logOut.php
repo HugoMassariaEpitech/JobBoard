@@ -7,4 +7,3 @@ $database = $config->getConnection();
 $class = new User($database);
 http_response_code(200);
 setcookie("token", "", -1, "", "", true, true);
-?>
