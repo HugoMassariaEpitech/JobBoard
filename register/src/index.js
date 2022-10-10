@@ -1,3 +1,13 @@
+// Check Connexion
+
+$.ajax({type:"POST", url:"../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
+    if (data.response) {
+        window.location = "../../annonces";
+    }
+}, error: function(data) {
+
+}});
+
 // Register Button
 
 $(".Form").submit(function() {
@@ -18,7 +28,7 @@ function register(civility, firstname, name, birthdate, phone, email, password, 
     }});
 }
 
-// LogIn Button
+// Register Button
 
 $(".Footer").find("button").not(":first-child").click(function() {
     window.location = "../../connexion";

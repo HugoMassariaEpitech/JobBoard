@@ -69,5 +69,21 @@ class User {
             return array("response" => false);
         }
     }
+    // Check Log OK
+    public function checkLogUser() {
+        if (isset($_COOKIE["token"])) {
+            $tokenParts = explode(".", $_COOKIE["token"]);
+            $payload = base64_decode($tokenParts[1]);
+            $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
+            $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
+            if ($base64UrlSignature == $tokenParts[2]) {
+                return array("response" => true);
+            } else {
+                return array("response" => false);
+            }
+        } else {
+            return array("response" => false);
+        }
+    }
 }
 ?>
