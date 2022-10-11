@@ -1,7 +1,6 @@
 <?php
 include_once "../class/session.php";
-class User
-{
+class User {
     // Connection
     private $connection;
     // Columns
@@ -14,14 +13,11 @@ class User
     public $user_email;
     public $user_password;
     // Database connection
-    public function __construct($config)
-    {
+    public function __construct($config) {
         $this->connection = $config;
     }
-
     // Read all users OK
-    public function getUsers()
-    {
+    public function getUsers() {
         $headers = apache_request_headers();
         $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
         $payload = base64_decode($tokenParts[1]);
@@ -45,8 +41,7 @@ class User
     }
 
     // Read one advertisement OK
-    public function getSingleUser()
-    {
+    public function getSingleUser() {
         $headers = apache_request_headers();
         $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
         $payload = base64_decode($tokenParts[1]);
@@ -71,9 +66,7 @@ class User
     }
 
     // Update an advertisement OK - when ressource is not found ?
-    public function updateUser()
-    {
-
+    public function updateUser() {
         $user = $this->connection->prepare("UPDATE users SET user_name = ?, user_firstname = ?, user_email = ?, user_phone = ?, user_civility = ?, user_birthdate = ? WHERE id_user = ?");
         $user->bindParam(1, htmlspecialchars(strip_tags($this->user_name)));
         $user->bindParam(2, htmlspecialchars(strip_tags($this->user_firstname)));
@@ -88,8 +81,7 @@ class User
         }
     }
     // Delete an advertisement OK - when ressource is not found ?
-    public function deleteAdvertisement()
-    {
+    public function deleteAdvertisement() {
         $headers = apache_request_headers();
         $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
         $payload = base64_decode($tokenParts[1]);
@@ -198,3 +190,4 @@ class User
         }
     }
 }
+?>

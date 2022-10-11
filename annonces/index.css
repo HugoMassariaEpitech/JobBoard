@@ -117,7 +117,7 @@ main {
     border: 0.5px solid #1A73E8;
 }
 
-.LeftSide > .Container > .Scroll > div > .Name {
+.LeftSide > .Container > .Scroll > div > .Name, .RightSide > .Panel > .Name {
     /* Design */
     color: black;
     font-size: 20px;
@@ -125,7 +125,7 @@ main {
     user-select: none;
 }
 
-.LeftSide > .Container > .Scroll > div > .Company {
+.LeftSide > .Container > .Scroll > div > .Company, .RightSide > .Panel > .Company {
     /* Design */
     color: black;
     font-size: 15px;
@@ -133,7 +133,7 @@ main {
     user-select: none;
 }
 
-.LeftSide > .Container > .Scroll > div > .Parameters {
+.LeftSide > .Container > .Scroll > div > .Parameters, .RightSide > .Panel > .Parameters {
     /* Design */
     background-color: white;
     /* Set Content Display */
@@ -141,11 +141,11 @@ main {
     overflow: scroll;
 }
 
-.LeftSide > .Container > .Scroll > div > .Parameters::-webkit-scrollbar {
+.LeftSide > .Container > .Scroll > div > .Parameters::-webkit-scrollbar, .RightSide > .Panel > .Parameters::-webkit-scrollbar {
     display: none;
 }
 
-.LeftSide > .Container > .Scroll > div > .Parameters > .Content {
+.LeftSide > .Container > .Scroll > div > .Parameters > .Content, .RightSide > .Panel > .Parameters > .Content {
     /* Set Position and size */
     flex: 1;
     width: 0px;
@@ -166,7 +166,7 @@ main {
     user-select: none;
 }
 
-.LeftSide > .Container > .Scroll > div > .Parameters > .Content > .Parameter {
+.LeftSide > .Container > .Scroll > div > .Parameters > .Content > .Parameter, .RightSide > .Panel > .Parameters > .Content > .Parameter {
     /* Constraints */
     padding: 5px 10px 5px 10px;
     /* Design */
@@ -177,7 +177,7 @@ main {
     gap: 5px;
 }
 
-.LeftSide > .Container > .Scroll > div > .Parameters > .Content > .Parameter > div {
+.LeftSide > .Container > .Scroll > div > .Parameters > .Content > .Parameter > div, .RightSide > .Panel > .Parameters > .Content > .Parameter > div {
     /* Design */
     font-size: 13px;
     font-weight: 300;
@@ -185,7 +185,7 @@ main {
     user-select: none;
 }
 
-.LeftSide > .Container > .Scroll > div > .Description {
+.LeftSide > .Container > .Scroll > div > .Description, .RightSide > .Panel > .Description {
     /* Set Position and size */
     flex: auto;
     /* Set Content Display */
@@ -193,38 +193,17 @@ main {
     overflow: hidden;
 }
 
-.LeftSide > .Container > .Scroll > div > .Description > .Content {
+.LeftSide > .Container > .Scroll > div > .Description > .Content, .RightSide > .Panel > .Description > .Content {
     /* Set Position and size */
     flex: 1;
     height: 0px;
     /* Design */
-    color: black;
+    color: #4D4D4D;
     font-size: 13px;
     font-weight: 300;
     user-select: none;
     /* Set Content Display */
     display: flex;
-}
-
-.LeftSide > .Container > .Scroll > div > button {
-    /* Set Position and size */
-    width: fit-content;
-    height: fit-content;
-    /* Constraints */
-    padding: 10px 20px 10px 20px;
-    margin-left: auto;
-    /* Design */
-    border: none;
-    background-color: #1A73E8;
-    border-radius: 20px;
-    color: white;
-    font-weight: 500;
-    font-size: 12px;
-    -webkit-appearance: button;
-    appearance: button;
-    text-decoration: none;
-    cursor: pointer;
-    user-select: none;
 }
 
 .RightSide {
@@ -250,104 +229,6 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.RightSide > .Panel > .Name {
-    /* Design */
-    color: black;
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.RightSide > .Panel > .Company {
-    /* Design */
-    color: black;
-    font-size: 15px;
-    font-weight: 400;
-}
-
-.RightSide > .Panel > .Parameters {
-    /* Design */
-    background-color: white;
-    /* Set Content Display */
-    display: flex;
-    overflow: scroll;
-}
-
-.RightSide > .Panel > .Parameters::-webkit-scrollbar {
-    display: none;
-}
-
-.RightSide > .Panel > .Parameters > .Content {
-    /* Set Position and size */
-    flex: 1;
-    width: 0px;
-    /* Constraints */
-    padding: 10px 0 10px 0;
-    /* Design */
-    background-color: white;
-    /* Set Content Display */
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-}
-
-.material-icons.md-13 {
-    height: 13px;
-    font-size: 13px; 
-}
-
-.RightSide > .Panel > .Parameters > .Content > .Parameter {
-    /* Constraints */
-    padding: 5px 10px 5px 10px;
-    /* Design */
-    background-color: #F4F5F7;
-    font-size: 13px;
-    font-weight: 300;
-    border-radius: 7px;
-    white-space: nowrap;
-    /* Set Content Display */
-    display: flex;
-    gap: 5px;
-}
-
-.RightSide > .Panel > .Description {
-    /* Set Position and size */
-    flex: auto;
-    /* Constraints */
-    margin-bottom: 10px;
-    /* Design */
-    color: black;
-    font-size: 13px;
-    font-weight: 300;
-    /* Set Content Display */
-    display: flex;
-    overflow: hidden;
-}
-
-.RightSide > .Panel > .Description > .Content {
-    /* Set Position and size */
-    flex: 1;
-    height: 0px;
-    /* Design */
-    color: black;
-    font-size: 13px;
-    font-weight: 300;
-    /* Set Content Display */
-    display: flex;
 }
 
 .RightSide > .Panel > button {

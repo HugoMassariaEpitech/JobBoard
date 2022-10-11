@@ -16,7 +16,7 @@ if (isset($user_email) && ($user_email != "") && isset($user_password) && ($user
         if (empty($request["result"])) {
             echo json_encode(array("response" => false, "message" => "Request failed. Please check params."));
         } else {
-            setcookie("token", $request["result"], time() + 3600, "", "", true, true);
+            setcookie("token", $request["result"], time() + 3600, "/", "", true, true); // Set Cookie Path
             echo json_encode(array("response" => true, "message" => $request["result"], "admin" => $request["admin"]));
         }
     } else {
