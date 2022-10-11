@@ -94,7 +94,6 @@ function getAdvertisement() {
                 Element.param = {advertisement: Element, id_advertisement: value.id_advertisement, advertisement_name: value.advertisement_name, advertisement_company: value.advertisement_company, advertisement_location: value.advertisement_location, advertisement_type: value.advertisement_type, advertisement_description: value.advertisement_description, advertisement_salary: value.advertisement_salary};
                 $(".LeftSide").find(".Container").find(".Scroll").append(Element);
             }
-            // $("main").find(".LeftSide").find(".Container").find(".Scroll").find("div").first().click();
         }
     }, error: function(data) {
     

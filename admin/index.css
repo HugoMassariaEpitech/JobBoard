@@ -29,6 +29,49 @@ header {
     align-items: center;
 }
 
+header > div:first-child {
+    /* Design */
+    color: #1A73E8;
+    font-family: "Sniglet";
+    font-size: 25px;
+}
+
+header > .Menu {
+    /* Set Position and size */
+    flex: auto;
+    height: 100%;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+header > .Menu > .Item {
+    /* Set Position and size */
+    height: 100%;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+}
+
+header > .Menu > .Item > div:first-child {
+    /* Set Position and size */
+    flex: auto;
+    vertical-align: middle;
+}
+
+header > .Menu > .Item > div:nth-child(2) {
+    /* Set Position and size */
+    height: 1.5px;
+    /* Design */
+    background-color: #1A73E8;
+}
+
 header > button {
     /* Set Position and size */
     width: fit-content;
@@ -38,9 +81,9 @@ header > button {
     margin-left: auto;
     /* Design */
     border: none;
-    background-color: #1A73E8;
+    background-color: white;
     border-radius: 20px;
-    color: white;
+    color: #1A73E8;
     font-weight: 500;
     font-size: 12px;
     -webkit-appearance: button;
