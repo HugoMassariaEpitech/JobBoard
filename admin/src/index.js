@@ -90,6 +90,16 @@ function getAdvertisement() {
                 DescriptionContent.classList.add("Content");
                 DescriptionContent.innerHTML = value.advertisement_description;
                 Description.appendChild(DescriptionContent);
+                const Subscribers = document.createElement("div");
+                Subscribers.classList.add("Subscribers");
+                Element.appendChild(Subscribers);
+                const SubscribersIcon = document.createElement("span");
+                SubscribersIcon.classList.add("material-icons", "md-13");
+                SubscribersIcon.innerHTML = "group";
+                Subscribers.appendChild(SubscribersIcon);
+                const SubscribersTitle = document.createElement("div");
+                SubscribersTitle.innerHTML = "5";
+                Subscribers.appendChild(SubscribersTitle);
                 Element.addEventListener("click", showAdvertisement);
                 Element.param = {advertisement: Element, id_advertisement: value.id_advertisement, advertisement_name: value.advertisement_name, advertisement_company: value.advertisement_company, advertisement_location: value.advertisement_location, advertisement_type: value.advertisement_type, advertisement_description: value.advertisement_description, advertisement_salary: value.advertisement_salary};
                 $(".LeftSide").find(".Container").find(".Scroll").append(Element);

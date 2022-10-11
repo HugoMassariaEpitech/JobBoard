@@ -16,6 +16,7 @@ body {
     flex-direction: column;
 }
 
+
 header {
     /* Set Position and size */
     flex: 0.1;
@@ -27,25 +28,93 @@ header {
     /* Set Content Display */
     display: flex;
     align-items: center;
+    gap: 20px;
+}
+
+header > div:nth-child(3) {
+    /* Design */
+    color: black;
+    font-weight: 300;
+    font-size: 17px;
+    cursor: pointer;
+    user-select: none;
+}
+
+header > div:first-child {
+    /* Design */
+    color: #1A73E8;
+    font-family: "Sniglet";
+    font-size: 25px;
+}
+
+header > .Menu {
+    /* Set Position and size */
+    flex: auto;
+    height: 100%;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+header > .Menu > .Item, header > .Menu > .ItemSelected {
+    /* Set Position and size */
+    height: 100%;
+    /* Design */
+    background-color: white;
+    cursor: pointer;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+}
+
+header > .Menu > .Item:hover div:nth-child(2) {
+    /* Design */
+    background-color: #1A73E8;
+}
+
+header > .Menu > .Item > div:first-child, header > .Menu > .ItemSelected > div:first-child {
+    /* Set Position and size */
+    flex: auto;
+    /* Design */
+    font-size: 17px;
+    font-weight: 300;
+    user-select: none;
+    /* Set Content Display */
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+header > .Menu > .ItemSelected > div:first-child {
+    /* Design */
+    color: #1A73E8;
+    font-weight: 400;
+}
+
+header > .Menu > .Item > div:nth-child(2), header > .Menu > .ItemSelected > div:nth-child(2) {
+    /* Set Position and size */
+    height: 2px;
+    /* Design */
+    background-color: white;
+}
+
+header > .Menu > .ItemSelected > div:nth-child(2) {
+    /* Design */
+    background-color: #1A73E8;
 }
 
 header > button {
-    /* Set Position and size */
-    width: fit-content;
-    height: fit-content;
-    /* Constraints */
-    padding: 10px 20px 10px 20px;
-    margin-left: auto;
     /* Design */
+    font-family: "Roboto", sans-serif;
     border: none;
-    background-color: #1A73E8;
-    border-radius: 20px;
-    color: white;
-    font-weight: 500;
-    font-size: 12px;
-    -webkit-appearance: button;
-    appearance: button;
-    text-decoration: none;
+    background-color: white;
+    color: #1A73E8;
+    font-weight: 300;
+    font-size: 17px;
     cursor: pointer;
     user-select: none;
 }
@@ -56,7 +125,7 @@ main {
     /* Constraints */
     padding: 30px;
     /* Design */
-    background-color: #F4F5F7;
+    background-color: white;
     /* Set Content Display */
     display: flex;
     flex-direction: row;
@@ -67,7 +136,7 @@ main {
     /* Set Position and size */
     flex: 1;
     /* Design */
-    background-color: #F4F5F7;
+    background-color: white;
     /* Set Content Display */
     display: flex;
 }
@@ -76,7 +145,7 @@ main {
     /* Set Position and size */
     flex: 1;
     /* Design */
-    background-color: #F4F5F7;
+    background-color: white;
     /* Set Content Display */
     display: flex;
     overflow: scroll;
@@ -91,7 +160,7 @@ main {
     flex: 1;
     height: 0px;
     /* Design */
-    background-color: #F4F5F7;
+    background-color: white;
     /* Set Content Display */
     display: grid;
     gap: 20px;
@@ -106,7 +175,7 @@ main {
     /* Design */
     background-color: white;
     border-radius: 20px;
-    border: 0.5px solid #E9E9E9;
+    border: 1px solid #E9E9E9;
     cursor: pointer;
     /* Set Content Display */
     display: flex;
@@ -114,14 +183,14 @@ main {
 }
 
 .LeftSide > .Container > .Scroll > .Selected {
-    border: 0.5px solid #1A73E8;
+    border: 1px solid #1A73E8;
 }
 
 .LeftSide > .Container > .Scroll > div > .Name, .RightSide > .Panel > .Name {
     /* Design */
     color: black;
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 17px;
+    font-weight: 400;
     user-select: none;
 }
 
@@ -129,7 +198,7 @@ main {
     /* Design */
     color: black;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 300;
     user-select: none;
 }
 
@@ -150,7 +219,7 @@ main {
     flex: 1;
     width: 0px;
     /* Constraints */
-    padding: 10px 0 10px 0;
+    padding: 10px 0 5px 0;
     /* Design */
     background-color: white;
     /* Set Content Display */
@@ -188,6 +257,8 @@ main {
 .LeftSide > .Container > .Scroll > div > .Description, .RightSide > .Panel > .Description {
     /* Set Position and size */
     flex: auto;
+    /* Constraints */
+    margin: 5px 0 10px 0;
     /* Set Content Display */
     display: flex;
     overflow: hidden;
@@ -198,19 +269,38 @@ main {
     flex: 1;
     height: 0px;
     /* Design */
-    color: #4D4D4D;
+    color: black;
     font-size: 13px;
     font-weight: 300;
     user-select: none;
+    white-space: pre-wrap;
+}
+
+.LeftSide > .Container > .Scroll > div > .Subscribers {
+    /* Constraints */
+    padding: 5px 10px 5px 10px;
+    margin-left: auto;
+    /* Design */
+    background-color: #F4F5F7;
+    border-radius: 7px;
     /* Set Content Display */
     display: flex;
+    gap: 5px;
+}
+
+.LeftSide > .Container > .Scroll > div > .Subscribers > div {
+    /* Design */
+    font-size: 13px;
+    font-weight: 300;
+    white-space: nowrap;
+    user-select: none;
 }
 
 .RightSide {
     /* Set Position and size */
     flex: 0.5;
     /* Design */
-    background-color: #F4F5F7;
+    background-color: white;
     /* Set Content Display */
     display: flex;
     flex-direction: row;
@@ -224,7 +314,7 @@ main {
     /* Design */
     background-color: white;
     border-radius: 20px;
-    border: 0.5px solid #E9E9E9;
+    border: 1px solid #E9E9E9;
     /* Set Content Display */
     display: flex;
     flex-direction: column;
@@ -234,20 +324,16 @@ main {
 .RightSide > .Panel > button {
     /* Set Position and size */
     width: fit-content;
-    height: fit-content;
     /* Constraints */
     padding: 10px 20px 10px 20px;
     margin-left: auto;
     /* Design */
+    font-family: "Roboto", sans-serif;
     border: none;
     background-color: #1A73E8;
     border-radius: 20px;
     color: white;
-    font-weight: 500;
-    font-size: 12px;
-    -webkit-appearance: button;
-    appearance: button;
-    text-decoration: none;
+    font-weight: 300;
+    font-size: 13px;
     cursor: pointer;
-    user-select: none;
 }

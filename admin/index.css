@@ -27,6 +27,16 @@ header {
     /* Set Content Display */
     display: flex;
     align-items: center;
+    gap: 20px;
+}
+
+header > div:nth-child(3) {
+    /* Design */
+    color: black;
+    font-weight: 300;
+    font-size: 17px;
+    cursor: pointer;
+    user-select: none;
 }
 
 header > div:first-child {
@@ -46,7 +56,7 @@ header > .Menu {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
 }
 
 header > .Menu > .Item, header > .Menu > .ItemSelected {
@@ -169,7 +179,7 @@ main {
     /* Set Content Display */
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
 }
 
 .LeftSide > .Container > .Scroll > .Selected {
@@ -209,7 +219,7 @@ main {
     flex: 1;
     width: 0px;
     /* Constraints */
-    padding: 10px 0 10px 0;
+    padding: 10px 0 5px 0;
     /* Design */
     background-color: white;
     /* Set Content Display */
@@ -223,6 +233,7 @@ main {
     height: 13px;
     font-size: 13px;
     user-select: none;
+    fill: none;
 }
 
 .LeftSide > .Container > .Scroll > div > .Parameters > .Content > .Parameter {
@@ -247,6 +258,8 @@ main {
 .LeftSide > .Container > .Scroll > div > .Description {
     /* Set Position and size */
     flex: auto;
+    /* Constraints */
+    margin: 5px 0 10px 0;
     /* Set Content Display */
     display: flex;
     overflow: hidden;
@@ -257,11 +270,31 @@ main {
     flex: 1;
     height: 0px;
     /* Design */
-    color: #4D4D4D;
+    color: black;
     font-size: 13px;
     font-weight: 300;
     user-select: none;
     white-space: pre-wrap;
+}
+
+.LeftSide > .Container > .Scroll > div > .Subscribers {
+    /* Constraints */
+    padding: 5px 10px 5px 10px;
+    margin-left: auto;
+    /* Design */
+    background-color: #F4F5F7;
+    border-radius: 7px;
+    /* Set Content Display */
+    display: flex;
+    gap: 5px;
+}
+
+.LeftSide > .Container > .Scroll > div > .Subscribers > div {
+    /* Design */
+    font-size: 13px;
+    font-weight: 300;
+    white-space: nowrap;
+    user-select: none;
 }
 
 .RightSide {
@@ -319,18 +352,20 @@ main {
     /* Design */
     color: black;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 13px;
+    user-select: none;
 }
 
 .RightSide > .Panel > .Form > .FormElement > input {
     /* Constraints */
     padding: 10px;
     /* Design */
+    font-family: "Roboto", sans-serif;
     border: none;
-    background-color: #F8F9FA;
+    background-color: #F4F5F7;
     border-radius: 20px;
     color: black;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 10px;
 }
 
@@ -342,10 +377,10 @@ main {
     /* Design */
     font-family: "Roboto", sans-serif;
     border: none;
-    background-color: #F8F9FA;
+    background-color: #F4F5F7;
     border-radius: 20px;
     color: black;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 10px;
     resize: none;
 }
@@ -376,12 +411,13 @@ main {
     /* Constraints */
     padding: 10px 20px 10px 20px;
     /* Design */
+    font-family: "Roboto", sans-serif;
     border: none;
     background-color: #1A73E8;
     border-radius: 20px;
     color: white;
     font-weight: 300;
-    font-size: 12px;
+    font-size: 13px;
     cursor: pointer;
 }
 
