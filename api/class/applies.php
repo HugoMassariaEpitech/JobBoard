@@ -12,6 +12,8 @@ class Applies
     public $user_firstname;
     public $id_advertisement;
 
+    //tout est bon dans le cochon
+
     // Database connection
     public function __construct($config)
     {
@@ -43,7 +45,6 @@ class Applies
     // Create an apply OK
     public function createApply()
     {
-
         $apply = $this->connection->prepare("INSERT INTO applies (user_email, id_advertisement, user_phone, user_firstname, user_name) VALUES (?, ?, ?, ?, ?)");
         $apply->bindParam(1, htmlspecialchars(strip_tags($this->user_email)));
         $apply->bindParam(2, htmlspecialchars(strip_tags($this->id_advertisement)));

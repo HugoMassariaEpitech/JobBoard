@@ -88,7 +88,7 @@ class User
         }
     }
     // Delete an advertisement OK - when ressource is not found ?
-    public function deleteAdvertisement()
+    public function deleteUser()
     {
         $headers = apache_request_headers();
         $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
