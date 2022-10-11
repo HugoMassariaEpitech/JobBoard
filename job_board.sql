@@ -29,9 +29,9 @@ CREATE TABLE `advertisements` (
   `advertisement_location` text NOT NULL,
   `advertisement_type` text NOT NULL,
   `advertisement_description` text NOT NULL,
-  `advertisement_details` json DEFAULT NULL,
+  `advertisement_salary` text,
   PRIMARY KEY (`id_advertisement`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `advertisements` (
 
 LOCK TABLES `advertisements` WRITE;
 /*!40000 ALTER TABLE `advertisements` DISABLE KEYS */;
-INSERT INTO `advertisements` VALUES (1,'Infirmier - Rouen (H/F)','1','Rouen (76)','Temps plein, CDI','Rejoindre SNCF.',NULL);
+INSERT INTO `advertisements` VALUES (5,'TEST','TEST','TEST','TEST','TEST','10000 €');
 /*!40000 ALTER TABLE `advertisements` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +90,7 @@ CREATE TABLE `users` (
   `user_password` text,
   `user_firstname` text,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Hugo Massaria',1,'hugo.massaria@google.com',NULL,NULL,NULL,'Hugo',NULL),(2,'Elies Hariate',1,NULL,NULL,NULL,NULL,NULL,NULL),(3,'Hugo',0,'hugo.massaria@epitech.com',NULL,NULL,NULL,'$2y$10$B5p9nZw0ohMBKyenKNqh/OeSpsfz.pULhf6etRfxkJd6xuBIlsh5u',NULL),(4,'Hugo',0,'hugo.massaria@hotmail.com','0606060606','2006-06-20','Mr','$2y$10$n4V6j.O7ObKD3tR0qagCsOctFhBlUvBZtknFWwf/GwFe..LToGCDG','Hugo'),(5,'Hariate',0,'elies.hariate@epitech.eu','0606060606','2022-09-13','M.','$2y$10$Yd2acyx7Dq.u3IZdLeDis.U/hocLZHXe/pkLMjNKe31x5DeCX481e','Elies'),(15,'jjj',0,'test@test.com','jjjjj','2022-09-01','M.','$2y$10$M2vvnXMHWZNNwSb3PTvNtuEhfv.1eFjWliZ/mEKIrnUNIaPP5PSV6','jjj'),(16,'jjj',0,'test2@test.com','0234567891','2022-10-01','M.','$2y$10$dlNd7fJM0/xguy060QfKuOBqHuTwUs9WWOB4hjhyZBsANRDKloOEu','jjj'),(17,'jjj',0,'test@test2.com','0234567891','2022-10-01','M.','$2y$10$bJ7n8ocGrOjSG3PvyGC10.I/Drr2Bs8a6vcIXKRrLyMOq4Q4WIgVm','jjj'),(18,'hariate',0,'elies@test.com','0909090909','2002-02-09','M.','$2y$10$Y2V2t0GWZOmHyCWQJ27Q2u1SmAAJjmEP1AGRf9XDs15gtHNuUls1i','elies'),(19,'hariate',0,'elies@test2.com','0909090909','2002-02-09','M.','$2y$10$ggF33gZCZNHYYAI3BSEXtuTsgUbHp8iLLcCzu6aEBjZbm29UmBttO','elies'),(20,'Hariate',0,'elies@test3.com','0909090909','2002-09-22','M.','$2y$10$5ODPVgw0F8J26niqjRA1SuIHxufJhYRfyTnGHRrdIL7w0Ue2F2x0i','Elies'),(21,'Hariate',0,'elies@test4.com','0909090909','2002-08-29','M.','$2y$10$EUFf8uFIuepK/ffpT.gdaezONqhOVxySqZlzuUfOsPP4/JCqpkdjC','Elies'),(22,'Hariate',0,'elies@test5.com','0909090909','2002-08-29','M.','$2y$10$E//Gj3S7A9bPE0T6roFlUumMNfTcBvxCrAFgguE05Zfmto3aCObX.','Elies'),(23,'Hariate',0,'elies@test6.com','0909090909','2002-08-29','M.','$2y$10$ou.7m5UGlJz2ZyP6.dE/3ORCmSiyrUngYrE/7lr2igoRVlcMawo8.','Elies'),(24,'Elies',1,'elies@test333.com','0909090909','2002-09-01','Mr','$2y$10$8xGRf17XmJDFImI7/2DoN.dYadcVq5uCgSkv5NMw0sjJJF6keNGxm','Elies'),(25,'Elies',0,'elies@test44.com','0909090909','2002-09-01','Mr','$2y$10$cXz0nXFNga9Rvv.FfNPwquPY8vc3n9cpu0eDoy1YVTC0sW9LLXLQi','Elies');
+INSERT INTO `users` VALUES (1,'Hugo Massaria',1,'hugo.massaria@google.com',NULL,NULL,NULL,'Hugo',NULL),(2,'Elies Hariate',1,NULL,NULL,NULL,NULL,NULL,NULL),(3,'Hugo',0,'hugo.massaria@epitech.com',NULL,NULL,NULL,'$2y$10$B5p9nZw0ohMBKyenKNqh/OeSpsfz.pULhf6etRfxkJd6xuBIlsh5u',NULL),(4,'Hugo',0,'hugo.massaria@hotmail.com','0606060606','2006-06-20','Mr','$2y$10$n4V6j.O7ObKD3tR0qagCsOctFhBlUvBZtknFWwf/GwFe..LToGCDG','Hugo'),(5,'Hariate',0,'elies.hariate@epitech.eu','0606060606','2022-09-13','M.','$2y$10$Yd2acyx7Dq.u3IZdLeDis.U/hocLZHXe/pkLMjNKe31x5DeCX481e','Elies'),(15,'jjj',0,'test@test.com','jjjjj','2022-09-01','M.','$2y$10$M2vvnXMHWZNNwSb3PTvNtuEhfv.1eFjWliZ/mEKIrnUNIaPP5PSV6','jjj'),(16,'jjj',0,'test2@test.com','0234567891','2022-10-01','M.','$2y$10$dlNd7fJM0/xguy060QfKuOBqHuTwUs9WWOB4hjhyZBsANRDKloOEu','jjj'),(17,'jjj',0,'test@test2.com','0234567891','2022-10-01','M.','$2y$10$bJ7n8ocGrOjSG3PvyGC10.I/Drr2Bs8a6vcIXKRrLyMOq4Q4WIgVm','jjj'),(18,'hariate',0,'elies@test.com','0909090909','2002-02-09','M.','$2y$10$Y2V2t0GWZOmHyCWQJ27Q2u1SmAAJjmEP1AGRf9XDs15gtHNuUls1i','elies'),(19,'hariate',0,'elies@test2.com','0909090909','2002-02-09','M.','$2y$10$ggF33gZCZNHYYAI3BSEXtuTsgUbHp8iLLcCzu6aEBjZbm29UmBttO','elies'),(20,'Hariate',0,'elies@test3.com','0909090909','2002-09-22','M.','$2y$10$5ODPVgw0F8J26niqjRA1SuIHxufJhYRfyTnGHRrdIL7w0Ue2F2x0i','Elies'),(21,'Hariate',0,'elies@test4.com','0909090909','2002-08-29','M.','$2y$10$EUFf8uFIuepK/ffpT.gdaezONqhOVxySqZlzuUfOsPP4/JCqpkdjC','Elies'),(22,'Hariate',0,'elies@test5.com','0909090909','2002-08-29','M.','$2y$10$E//Gj3S7A9bPE0T6roFlUumMNfTcBvxCrAFgguE05Zfmto3aCObX.','Elies'),(23,'Hariate',0,'elies@test6.com','0909090909','2002-08-29','M.','$2y$10$ou.7m5UGlJz2ZyP6.dE/3ORCmSiyrUngYrE/7lr2igoRVlcMawo8.','Elies'),(24,'Elies',1,'elies@test333.com','0909090909','2002-09-01','Mr','$2y$10$8xGRf17XmJDFImI7/2DoN.dYadcVq5uCgSkv5NMw0sjJJF6keNGxm','Elies'),(25,'Elies',0,'elies@test44.com','0909090909','2002-09-01','Mr','$2y$10$cXz0nXFNga9Rvv.FfNPwquPY8vc3n9cpu0eDoy1YVTC0sW9LLXLQi','Elies'),(26,'Admin',1,'admin@admin.fr','0909090909','2002-08-29','M.','$2y$10$MxjsR8OpeBY7OhuGTQX/4ODLuH60PBWjWc.P5Y.Qs2lN5eUQD2OCO','Admin'),(27,'Client',0,'client@client.fr','0909090909','2002-08-29','M.','$2y$10$EVikY84SjoEKDMc8Cww7m.4z8hHmwZxnwenU7qs2PgybebFoVMh/W','Client');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -112,4 +112,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-10-11  5:21:55
+-- Dump completed on 2022-10-11 11:07:54
