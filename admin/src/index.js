@@ -24,7 +24,6 @@ function logOut() {
     }, error: function(data) {
     
     }});
-    window.location = "../../connexion";
 }
 
 // Get Advertisements
