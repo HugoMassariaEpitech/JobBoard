@@ -1,5 +1,5 @@
 <?php
-/* OK */
+/* Fini */
 include_once "../config/database.php";
 include_once "../class/advertisement.php";
 $config = new Database();
@@ -12,7 +12,7 @@ $advertisement_location = $_POST["advertisement_location"];
 $advertisement_type = $_POST["advertisement_type"];
 $advertisement_description = $_POST["advertisement_description"];
 $advertisement_salary = $_POST["advertisement_salary"];
-if (isset($id_advertisement) && ($id_advertisement != "") && isset($advertisement_name) && ($advertisement_name != "") && isset($advertisement_company) && ($advertisement_company != "") && isset($advertisement_location) && ($advertisement_location != "") && isset($advertisement_type) && ($advertisement_type != "") && isset($advertisement_description) && ($advertisement_description != "")) {
+if (isset($id_advertisement) && ($id_advertisement != "") && isset($advertisement_name) && ($advertisement_name != "") && isset($advertisement_company) && ($advertisement_company != "") && isset($advertisement_location) && ($advertisement_location != "") && isset($advertisement_type) && ($advertisement_type != "") && isset($advertisement_description) && ($advertisement_description != "") && isset($advertisement_salary) && ($advertisement_salary != "")) {
     $class->id_advertisement = $id_advertisement;
     $class->advertisement_name = $advertisement_name;
     $class->advertisement_company = $advertisement_company;
@@ -20,7 +20,7 @@ if (isset($id_advertisement) && ($id_advertisement != "") && isset($advertisemen
     $class->advertisement_type = $advertisement_type;
     $class->advertisement_description = $advertisement_description;
     $class->advertisement_salary = $advertisement_salary;
-    $request = $class->updateAdvertisement();
+    $request = $class->update();
     if ($request["response"]) {
         http_response_code(200);
         echo json_encode(array("response" => true));

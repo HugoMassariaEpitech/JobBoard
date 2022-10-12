@@ -1,57 +1,65 @@
-// Check Connexion
+// Check connexion
 
-$.ajax({type:"POST", url:"../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
+$.ajax({type:"POST", url:"../../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (!parseInt(data.admin)) {
-            window.location = "../../annonces";
+            window.location = "../../../annonces"; // Not admin -> Public
         }
     } else {
-        window.location = "../../connexion";
+        window.location = "../../../connexion"; // Not connected -> Connexion
     }
 }, error: function(data) {
 
 }});
 
-// LogOut
+// LogOut button
 
 $("header").find("button").click(function() {
-    logOut();
-});
-
-function logOut() {
-    $.ajax({type:"POST", url:"../../api/user/logOut.php", data:"", dataType: "json", success: function(data) {
-
+    $.ajax({type:"POST", url:"../../../api/user/logOut.php", data:"", dataType: "json", success: function(data) {
+        if (data.response) {
+            window.location = "../../../connexion"; // Not connected -> Connexion
+        }
     }, error: function(data) {
     
     }});
-}
+});
 
-// Get Advertisements
+// Init page
 
-$(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide();
+$(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide(); // Hide Delete & Cancel Button
+getAdvertisements();
+createAdvertisement();
 
-getAdvertisement()
+// Get advertisements
 
-function getAdvertisement() {
-    $(".LeftSide").find(".Container").find(".Scroll").empty();
-    $.ajax({type:"GET", url:"../../api/advertisement/readAll.php", data:"", dataType: "json", success: function(data) {
+function getAdvertisements() {
+    $(".LeftSide").find(".Container").find(".Scroll").empty(); // Delete all current advertisement's data
+    $.ajax({type:"GET", url:"../../../api/advertisement/readAll.php", data:"", dataType: "json", success: function(data) {
         if (data.response) {
             for (const [key, value] of Object.entries(data.message)) {
+                // Advertisement
                 const Element = document.createElement("div");
+                Element.param = {advertisement: Element, id_advertisement: value.id_advertisement, advertisement_name: value.advertisement_name, advertisement_company: value.advertisement_company, advertisement_location: value.advertisement_location, advertisement_type: value.advertisement_type, advertisement_description: value.advertisement_description, advertisement_salary: value.advertisement_salary};
+                Element.addEventListener("click", displayAdvertisement);
+                $(".LeftSide").find(".Container").find(".Scroll").append(Element);
+                // Advertisement -> Name
                 const Name = document.createElement("div");
                 Name.classList.add("Name");
                 Name.innerHTML = value.advertisement_name;
                 Element.appendChild(Name);
+                // Advertisement -> Company
                 const Company = document.createElement("div");
                 Company.classList.add("Company");
                 Company.innerHTML = value.advertisement_company;
                 Element.appendChild(Company);
+                // Advertisement -> Parameters (location - Type - Salary)
                 const Parameters = document.createElement("div");
                 Parameters.classList.add("Parameters");
                 Element.appendChild(Parameters);
                 const ParametersContent = document.createElement("div");
                 ParametersContent.classList.add("Content");
                 Parameters.appendChild(ParametersContent);
+                // Location
                 const LocationParameter = document.createElement("div");
                 LocationParameter.classList.add("Parameter");
                 ParametersContent.appendChild(LocationParameter);
@@ -62,6 +70,7 @@ function getAdvertisement() {
                 const LocationTitle = document.createElement("div");
                 LocationTitle.innerHTML = value.advertisement_location;
                 LocationParameter.appendChild(LocationTitle);
+                // Type
                 const TypeParameter = document.createElement("div");
                 TypeParameter.classList.add("Parameter");
                 ParametersContent.appendChild(TypeParameter);
@@ -72,6 +81,7 @@ function getAdvertisement() {
                 const TypeTitle = document.createElement("div");
                 TypeTitle.innerHTML = value.advertisement_type;
                 TypeParameter.appendChild(TypeTitle);
+                // Salary
                 const SalaryParameter = document.createElement("div");
                 SalaryParameter.classList.add("Parameter");
                 ParametersContent.appendChild(SalaryParameter);
@@ -82,6 +92,7 @@ function getAdvertisement() {
                 const SalaryTitle = document.createElement("div");
                 SalaryTitle.innerHTML = value.advertisement_salary;
                 SalaryParameter.appendChild(SalaryTitle);
+                // Advertisement -> Description
                 const Description = document.createElement("div");
                 Description.classList.add("Description");
                 Element.appendChild(Description);
@@ -89,6 +100,7 @@ function getAdvertisement() {
                 DescriptionContent.classList.add("Content");
                 DescriptionContent.innerHTML = value.advertisement_description;
                 Description.appendChild(DescriptionContent);
+                // Advertisement -> Subscribers
                 const Subscribers = document.createElement("div");
                 Subscribers.classList.add("Subscribers");
                 Element.appendChild(Subscribers);
@@ -99,9 +111,6 @@ function getAdvertisement() {
                 const SubscribersTitle = document.createElement("div");
                 SubscribersTitle.innerHTML = "5";
                 Subscribers.appendChild(SubscribersTitle);
-                Element.addEventListener("click", showAdvertisement);
-                Element.param = {advertisement: Element, id_advertisement: value.id_advertisement, advertisement_name: value.advertisement_name, advertisement_company: value.advertisement_company, advertisement_location: value.advertisement_location, advertisement_type: value.advertisement_type, advertisement_description: value.advertisement_description, advertisement_salary: value.advertisement_salary};
-                $(".LeftSide").find(".Container").find(".Scroll").append(Element);
             }
         }
     }, error: function(data) {
@@ -109,40 +118,46 @@ function getAdvertisement() {
     }});
 }
 
-// Show Advertisement
+// Display advertisement
 
-function showAdvertisement(data) {
+function displayAdvertisement(data) {
+    // Change borders of selected advertisement
     $(".LeftSide").find(".Container").find(".Scroll").find("div").removeClass("Selected");
     data.currentTarget.param.advertisement.className = "Selected";
+    // Display advertisement in the admin panel
     $(".Form").find("input")[0].value = data.currentTarget.param.advertisement_name;
     $(".Form").find("input")[1].value = data.currentTarget.param.advertisement_company;
     $(".Form").find("input")[2].value = data.currentTarget.param.advertisement_location;
     $(".Form").find("input")[3].value = data.currentTarget.param.advertisement_type;
     $(".Form").find("input")[4].value = data.currentTarget.param.advertisement_salary.replace(" €", "");
     $(".Form").find("textarea")[0].value = data.currentTarget.param.advertisement_description;
-    $(".RightSide").find(".Panel").find(".Footer").find("button").first().html("Mettre à jour");
+    // Change admin panel -> Update
     $(".Form").unbind("submit");
+    $(".RightSide").find(".Panel").find(".Footer").find("button").first().html("Update");
     updateAdvertisement(data.currentTarget.param.id_advertisement);
-    $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").show();
+    // Change admin panel -> Delete
+    $(".RightSide").find(".Panel").find(".Footer").find("button:nth-child(2)").show(); // Show Delete Button
     deleteAdvertisement(data.currentTarget.param.id_advertisement);
+    // Change admin panel -> Cancel
+    $(".RightSide").find(".Panel").find(".Footer").find("button:nth-child(3)").show(); // Show Cancel Button
+    cancel();
 }
 
-// Update Advertisement
+// Update advertisement
 
 function updateAdvertisement(id_advertisement) {
     $(".Form").submit(function() {
         const Data = $(".Form").serializeArray();
-        $.ajax({type:"POST", url:"../../api/advertisement/update.php", data:`id_advertisement=${id_advertisement}&advertisement_name=${Data[0].value}&advertisement_company=${Data[1].value}&advertisement_location=${Data[2].value}&advertisement_type=${Data[3].value}&advertisement_salary=${Data[4].value} €&advertisement_description=${Data[5].value}`, dataType: "json", success: function(data) {
-            getAdvertisement();
+        $.ajax({type:"POST", url:"../../../api/advertisement/update.php", data:`id_advertisement=${id_advertisement}&advertisement_name=${Data[0].value}&advertisement_company=${Data[1].value}&advertisement_location=${Data[2].value}&advertisement_type=${Data[3].value}&advertisement_salary=${Data[4].value} €&advertisement_description=${Data[5].value}`, dataType: "json", success: function(data) {
+            getAdvertisements() // Refresh all current advertisement's data
+            // Change admin panel -> Create
             $(".Form").find("input").val("");
             $(".Form").find("textarea").val("");
-            $(".RightSide").find(".Panel").find(".Footer").find("button").first().html("Add");
             $(".Form").unbind("submit");
-            $(".Form").submit(function() {
-                const Data = $(".Form").serializeArray();
-                addAdvertisement(Data[0], Data[1], Data[2], Data[3], Data[4], Data[5]);
-                return false;
-            });
+            $(".RightSide").find(".Panel").find(".Footer").find("button").first().html("Add");
+            $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").unbind("click");
+            $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide(); // Hide Delete & Cancel Button
+            createAdvertisement();
         }, error: function(data) {
         
         }});
@@ -150,43 +165,55 @@ function updateAdvertisement(id_advertisement) {
     });
 }
 
-// Delete Advertisement
+// Delete advertisement
 
 function deleteAdvertisement(id_advertisement) {
-    $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").click(function() {
-        $.ajax({type:"POST", url:"../../api/advertisement/delete.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
-            getAdvertisement();
+    $(".RightSide").find(".Panel").find(".Footer").find("button:nth-child(2)").click(function() {
+        $.ajax({type:"POST", url:"../../../api/advertisement/delete.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
+            getAdvertisements() // Refresh all current advertisement's data
+            // Change admin panel -> Create
             $(".Form").find("input").val("");
             $(".Form").find("textarea").val("");
-            $(".RightSide").find(".Panel").find(".Footer").find("button").first().html("Add");
             $(".Form").unbind("submit");
-            $(".Form").submit(function() {
-                const Data = $(".Form").serializeArray();
-                addAdvertisement(Data[0], Data[1], Data[2], Data[3], Data[4], Data[5]);
-                return false;
-            });
+            $(".RightSide").find(".Panel").find(".Footer").find("button").first().html("Add");
             $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").unbind("click");
-            $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide();
+            $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide(); // Hide Delete & Cancel Button
+            createAdvertisement();
         }, error: function(data) {
         
         }});
     });
 }
 
-// Add Advertisement
+// Create Advertisement
 
-$(".Form").submit(function() {
-    const Data = $(".Form").serializeArray();
-    addAdvertisement(Data[0], Data[1], Data[2], Data[3], Data[4], Data[5]);
-    return false;
-});
+function createAdvertisement() {
+    $(".Form").submit(function() {
+        const Data = $(".Form").serializeArray();
+        $.ajax({type:"POST", url:"../../../api/advertisement/create.php", data:`advertisement_name=${Data[0].value}&advertisement_company=${Data[1].value}&advertisement_location=${Data[2].value}&advertisement_type=${Data[3].value}&advertisement_salary=${Data[4].value} €&advertisement_description=${Data[5].value}`, dataType: "json", success: function(data) {
+            getAdvertisements() // Refresh all current advertisement's data
+            $(".Form").find("input").val("");
+            $(".Form").find("textarea").val("");
+        }, error: function(data) {
+        
+        }});
+        return false;
+    });
+}
 
-function addAdvertisement(name, company, location, type, salary, description) {
-    $.ajax({type:"POST", url:"../../api/advertisement/create.php", data:`advertisement_name=${name.value}&advertisement_company=${company.value}&advertisement_location=${location.value}&advertisement_type=${type.value}&advertisement_salary=${salary.value} €&advertisement_description=${description.value}`, dataType: "json", success: function(data) {
-        getAdvertisement();
+// Cancel
+
+function cancel() {
+    $(".RightSide").find(".Panel").find(".Footer").find("button:nth-child(3)").click(function() {
+        // Change borders of selected advertisement
+        $(".LeftSide").find(".Container").find(".Scroll").find("div").removeClass("Selected");
+        // Change admin panel -> Create
         $(".Form").find("input").val("");
         $(".Form").find("textarea").val("");
-    }, error: function(data) {
-    
-    }});
+        $(".Form").unbind("submit");
+        $(".RightSide").find(".Panel").find(".Footer").find("button").first().html("Add");
+        $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").unbind("click");
+        $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide(); // Hide Delete & Cancel Button
+        createAdvertisement();
+    });
 }

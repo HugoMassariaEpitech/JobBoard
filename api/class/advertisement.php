@@ -39,8 +39,8 @@ class Advertisement
             return array("response" => false);
         }
     }
-    // Create an advertisement OK
-    public function createAdvertisement() {
+    // Create an advertisement - Fini
+    public function create() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
             $payload = base64_decode($tokenParts[1]);
@@ -70,8 +70,8 @@ class Advertisement
             return array("response" => false, "access" => false);
         }
     }
-    // Update an advertisement OK - when ressource is not found ?
-    public function updateAdvertisement() {
+    // Update an advertisement - Fini - when ressource is not found ?
+    public function update() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
             $payload = base64_decode($tokenParts[1]);
@@ -102,8 +102,8 @@ class Advertisement
             return array("response" => false, "access" => false);
         }
     }
-    // Delete an advertisement OK - when ressource is not found ?
-    public function deleteAdvertisement() {
+    // Delete an advertisement - Fini - when ressource is not found ?
+    public function delete() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
             $payload = base64_decode($tokenParts[1]);

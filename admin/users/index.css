@@ -1,0 +1,177 @@
+body {
+    /* Set Position and size */
+    position: fixed;
+    /* Constraints */
+    margin: 0px;
+    padding: 0px;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    /* Design */
+    background-color:  #F4F5F7;
+    font-family: "Roboto", sans-serif;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    /* Set Position and size */
+    flex: 0.1;
+    /* Constraints */
+    padding: 0 40px 0 40px;
+    /* Design */
+    background-color: white;
+    border-bottom: 1px solid #E9E9E9;
+    /* Set Content Display */
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+header > div:nth-child(3) {
+    /* Design */
+    color: black;
+    font-weight: 300;
+    font-size: 17px;
+    cursor: pointer;
+    user-select: none;
+}
+
+header > div:first-child {
+    /* Design */
+    color: #1A73E8;
+    font-family: "Sniglet";
+    font-size: 25px;
+}
+
+header > .Menu {
+    /* Set Position and size */
+    flex: auto;
+    height: 100%;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+header > .Menu > .Item, header > .Menu > .ItemSelected {
+    /* Set Position and size */
+    height: 100%;
+    /* Design */
+    background-color: white;
+    cursor: pointer;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+}
+
+header > .Menu > .Item:hover div:nth-child(2) {
+    /* Design */
+    background-color: #1A73E8;
+}
+
+header > .Menu > .Item > div:first-child, header > .Menu > .ItemSelected > div:first-child {
+    /* Set Position and size */
+    flex: auto;
+    /* Design */
+    font-size: 17px;
+    font-weight: 300;
+    user-select: none;
+    /* Set Content Display */
+    display: flex;
+    align-items:center;
+    justify-content:center;
+}
+
+header > .Menu > .ItemSelected > div:first-child {
+    /* Design */
+    color: #1A73E8;
+    font-weight: 400;
+}
+
+header > .Menu > .Item > div:nth-child(2), header > .Menu > .ItemSelected > div:nth-child(2) {
+    /* Set Position and size */
+    height: 2px;
+    /* Design */
+    background-color: white;
+}
+
+header > .Menu > .ItemSelected > div:nth-child(2) {
+    /* Design */
+    background-color: #1A73E8;
+}
+
+header > button {
+    /* Design */
+    font-family: "Roboto", sans-serif;
+    border: none;
+    background-color: white;
+    color: #1A73E8;
+    font-weight: 300;
+    font-size: 17px;
+    cursor: pointer;
+    user-select: none;
+}
+
+main {
+    /* Set Position and size */
+    flex: 1;
+    /* Constraints */
+    padding: 30px;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.LeftSide {
+    /* Set Position and size */
+    flex: 1;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+}
+
+.LeftSide > .Container {
+    /* Set Position and size */
+    flex: 1;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    overflow: scroll;
+}
+
+.LeftSide > .Container::-webkit-scrollbar {
+    display: none;
+}
+
+.LeftSide > .Container > .Scroll {
+    /* Set Position and size */
+    flex: 1;
+    height: 0px;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.RightSide {
+    /* Set Position and size */
+    flex: 0.5;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: row;
+}

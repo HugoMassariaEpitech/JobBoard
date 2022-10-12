@@ -3,7 +3,7 @@
 $.ajax({type:"POST", url:"../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (parseInt(data.admin)) {
-            window.location = "../../admin";
+            window.location = "../../admin/advertisements";
         } else {
             window.location = "../../annonces";
         }

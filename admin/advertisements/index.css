@@ -413,16 +413,21 @@ main {
     /* Design */
     font-family: "Roboto", sans-serif;
     border: none;
-    background-color: #1A73E8;
+    background-color: white;
     border-radius: 20px;
-    color: white;
+    color: #1A73E8;
     font-weight: 300;
     font-size: 13px;
     cursor: pointer;
 }
 
-.RightSide > .Panel > .Footer > button:last-child {
+.RightSide > .Panel > .Footer > button:first-child {
     /* Design */
-    background-color: white;
-    color: #1A73E8;
+    background-color: #1A73E8;
+    color: white;
+}
+
+.RightSide > .Panel > .Footer > button:nth-child(2){
+    /* Constraints */
+    margin-left: auto;
 }

@@ -1,5 +1,5 @@
 <?php
-/* OK */
+/* Fini */
 include_once "../config/database.php";
 include_once "../class/advertisement.php";
 $config = new Database();
@@ -8,7 +8,7 @@ $class = new Advertisement($database);
 $id_advertisement = $_POST["id_advertisement"];
 if (isset($id_advertisement) && ($id_advertisement != "")) {
     $class->id_advertisement = $id_advertisement;
-    $request = $class->deleteAdvertisement();
+    $request = $class->delete();
     if ($request["response"]) {
         http_response_code(200);
         echo json_encode(array("response" => true));

@@ -3,7 +3,7 @@
 $.ajax({type:"POST", url:"../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (parseInt(data.admin)) {
-            window.location = "../../admin";
+            window.location = "../../admin/advertisements";
         } else {
             window.location = "../../annonces";
         }
@@ -24,7 +24,7 @@ function logIn(email, password) {
     $.ajax({type:"POST", url:"../../api/user/logIn.php", data:`user_email=${email}&user_password=${password}`, dataType: "json", success: function(data) {
         if (data.response) {
             if (parseInt(data.admin)) {
-                window.location = "../../admin";
+                window.location = "../../admin/advertisements";
             } else {
                 window.location = "../../annonces";
             }
