@@ -128,25 +128,20 @@ main {
     background-color: white;
     /* Set Content Display */
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    gap: 30px;
 }
 
-main > div:first-child {
+.LeftSide {
     /* Set Position and size */
-    width: fit-content;
-    /* Constraints */
-    padding: 5px;
+    flex: 1;
     /* Design */
-    background-color: #26CE7830;
-    border-radius: 5px;
-    color: #26CE78;
-    font-weight: 300;
-    font-size: 15px;
-    user-select: none;
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
 }
 
-main > .Container {
+.LeftSide > .Container {
     /* Set Position and size */
     flex: 1;
     /* Design */
@@ -156,53 +151,28 @@ main > .Container {
     overflow: scroll;
 }
 
-main > .Container::-webkit-scrollbar {
+.LeftSide > .Container::-webkit-scrollbar {
     display: none;
 }
 
-main > .Container > .Scroll {
+.LeftSide > .Container > .Scroll {
     /* Set Position and size */
     flex: 1;
     height: 0px;
     /* Design */
     background-color: white;
     /* Set Content Display */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
 }
 
-main > .Container > .Scroll > .Row {
-    /* Constraints */
-    padding: 20px;
+.RightSide {
+    /* Set Position and size */
+    flex: 0.5;
     /* Design */
     background-color: white;
-    border: 1px solid #E9E9E9;
-    border-radius: 15px;
     /* Set Content Display */
     display: flex;
-    gap: 15px;
-}
-
-main > .Container > .Scroll > .Row > div {
-    /* Set Position and size */
-    flex: 1;
-    /* Design */
-    font-weight: 300;
-    font-size: 15px;
-    user-select: none;
-}
-
-main > .Container > .Scroll > .Row > div:first-child {
-    /* Design */
-    font-weight: 400;
-}
-
-.material-icons.md-17 {
-    /* Set Position and size */
-    height: 17px;
-    /* Design */
-    font-size: 17px;
-    user-select: none;
-    cursor: pointer;
+    flex-direction: row;
 }

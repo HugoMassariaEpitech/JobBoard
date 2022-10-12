@@ -1,5 +1,5 @@
 <?php
-/* OK */
+/* Fini */
 include_once "../config/database.php";
 include_once "../class/user.php";
 $config = new Database();
@@ -25,7 +25,7 @@ if (isset($user_civility) && ($user_civility != "") && isset($user_firstname) &&
         $class->user_phone = $user_phone;
         $class->user_email = $user_email;
         $class->user_password = $user_password;
-        $request = $class->registerUser();
+        $request = $class->create();
         if ($request["response"]) {
             http_response_code(200);
             if ($request["registered"]) {
@@ -43,3 +43,4 @@ if (isset($user_civility) && ($user_civility != "") && isset($user_firstname) &&
     http_response_code(400);
     echo json_encode(array("response" => false, "message" => "Request failed. Please check params."));
 }
+?>

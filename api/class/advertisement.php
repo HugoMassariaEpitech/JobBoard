@@ -1,6 +1,5 @@
 <?php
-class Advertisement
-{
+class Advertisement {
     // Connection
     private $connection;
     // Columns
@@ -12,34 +11,10 @@ class Advertisement
     public $advertisement_description;
     public $advertisement_salary;
     // Database connection
-    public function __construct($config)
-    {
+    public function __construct($config) {
         $this->connection = $config;
     }
-    // Read all advertisements OK
-    public function getAdvertisements()
-    {
-        $advertisements = $this->connection->prepare("SELECT * FROM advertisements");
-        if ($advertisements->execute()) {
-            $result = $advertisements->fetchAll();
-            return array("response" => true, "result" => $result);
-        } else {
-            return array("response" => false);
-        }
-    }
-    // Read one advertisement OK
-    public function getSingleAdvertisement()
-    {
-        $advertisement = $this->connection->prepare("SELECT * FROM advertisements WHERE id_advertisement = ?");
-        $advertisement->bindParam("1", $this->id_advertisement);
-        if ($advertisement->execute()) {
-            $result = $advertisement->fetchAll();
-            return array("response" => true, "result" => $result);
-        } else {
-            return array("response" => false);
-        }
-    }
-    // Create an advertisement - Fini
+    // Create - Fini
     public function create() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -70,7 +45,7 @@ class Advertisement
             return array("response" => false, "access" => false);
         }
     }
-    // Update an advertisement - Fini - when ressource is not found ?
+    // Update - Fini - when ressource is not found ?
     public function update() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -102,7 +77,7 @@ class Advertisement
             return array("response" => false, "access" => false);
         }
     }
-    // Delete an advertisement - Fini - when ressource is not found ?
+    // Delete - Fini - when ressource is not found ?
     public function delete() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -128,6 +103,41 @@ class Advertisement
             return array("response" => false, "access" => false);
         }
     }
+    // Read - Fini -
+    public function read() {
+        $advertisements = $this->connection->prepare("SELECT * FROM advertisements");
+        if ($advertisements->execute()) {
+            $result = $advertisements->fetchAll();
+            return array("response" => true, "result" => $result);
+        } else {
+            return array("response" => false);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -148,3 +158,4 @@ class Advertisement
         return false;
     }
 }
+?>

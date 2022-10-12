@@ -32,6 +32,7 @@ header {
 
 header > div:nth-child(3) {
     /* Design */
+    background-color: white;
     color: black;
     font-weight: 300;
     font-size: 17px;
@@ -147,6 +148,7 @@ main {
     background-color: white;
     /* Set Content Display */
     display: flex;
+    flex-direction: column;
     overflow: scroll;
 }
 
@@ -229,8 +231,9 @@ main {
 }
 
 .material-icons.md-13 {
-    /* Design */
+    /* Set Position and size */
     height: 13px;
+    /* Design */
     font-size: 13px;
     user-select: none;
     fill: none;

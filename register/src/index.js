@@ -1,6 +1,6 @@
 // Check Connexion
 
-$.ajax({type:"POST", url:"../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
+$.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (parseInt(data.admin)) {
             window.location = "../../admin/advertisements";
@@ -21,7 +21,7 @@ $(".Form").submit(function() {
 });
 
 function register(civility, firstname, name, birthdate, phone, email, password, passwordConfirmation) {
-    $.ajax({type:"POST", url:"../../api/user/register.php", data:`user_civility=${civility}&user_firstname=${firstname}&user_name=${name}&user_birthdate=${birthdate}&user_phone=${phone}&user_email=${email}&user_password=${password}&password_confirmation=${passwordConfirmation}`, dataType: "json", success: function(data) {
+    $.ajax({type:"POST", url:"../../api/user/create.php", data:`user_civility=${civility}&user_firstname=${firstname}&user_name=${name}&user_birthdate=${birthdate}&user_phone=${phone}&user_email=${email}&user_password=${password}&password_confirmation=${passwordConfirmation}`, dataType: "json", success: function(data) {
         if (data.response) {
             window.location = "../../annonces";
         } else {
@@ -32,7 +32,7 @@ function register(civility, firstname, name, birthdate, phone, email, password, 
     }});
 }
 
-// Register Button
+// Connexion Button
 
 $(".Footer").find("button").not(":first-child").click(function() {
     window.location = "../../connexion";

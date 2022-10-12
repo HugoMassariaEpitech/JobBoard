@@ -1,6 +1,6 @@
 // Check connexion
 
-$.ajax({type:"POST", url:"../../../api/user/checkLog.php", data:"", dataType: "json", success: function(data) {
+$.ajax({type:"POST", url:"../../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (!parseInt(data.admin)) {
             window.location = "../../../annonces"; // Not admin -> Public
@@ -15,7 +15,7 @@ $.ajax({type:"POST", url:"../../../api/user/checkLog.php", data:"", dataType: "j
 // LogOut button
 
 $("header").find("button").click(function() {
-    $.ajax({type:"POST", url:"../../../api/user/logOut.php", data:"", dataType: "json", success: function(data) {
+    $.ajax({type:"POST", url:"../../../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
         if (data.response) {
             window.location = "../../../connexion"; // Not connected -> Connexion
         }
@@ -29,12 +29,15 @@ $("header").find("button").click(function() {
 $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide(); // Hide Delete & Cancel Button
 getAdvertisements();
 createAdvertisement();
+$("header").find(".Menu").find(".Item").click(function() {
+    window.location = `../${$(this)[0].innerText.toLowerCase()}`;
+});
 
 // Get advertisements
 
 function getAdvertisements() {
     $(".LeftSide").find(".Container").find(".Scroll").empty(); // Delete all current advertisement's data
-    $.ajax({type:"GET", url:"../../../api/advertisement/readAll.php", data:"", dataType: "json", success: function(data) {
+    $.ajax({type:"GET", url:"../../../api/advertisement/read.php", data:"", dataType: "json", success: function(data) {
         if (data.response) {
             for (const [key, value] of Object.entries(data.message)) {
                 // Advertisement

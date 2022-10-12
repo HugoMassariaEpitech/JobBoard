@@ -35,3 +35,4 @@ if (isset($advertisement_name) && ($advertisement_name != "") && isset($advertis
     http_response_code(400);
     echo json_encode(array("response" => false, "message" => "Request failed. Please check params."));
 }
+?>
