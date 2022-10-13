@@ -63,7 +63,7 @@ function getAdvertisements() {
                     const ExpandIcon = document.createElement("span");
                     ExpandIcon.classList.add("material-icons", "md-17");
                     ExpandIcon.innerHTML = "expand_more";
-                    ExpandIcon.param = {advertisement: Element, applicants: Applicants};
+                    ExpandIcon.param = {id_advertisement: value.id_advertisement, advertisement: Element, applicants: Applicants};
                     ExpandIcon.addEventListener("click", displayApplicants);
                     Row.appendChild(ExpandIcon);
                 });
@@ -116,11 +116,13 @@ function displayApplicants(data) {
         const DeleteIcon = document.createElement("span");
         DeleteIcon.classList.add("material-icons", "md-17");
         DeleteIcon.innerHTML = "person_remove";
-        // DeleteIcon.param = {id_user: value.id_user};
-        // DeleteIcon.addEventListener("click", deleteUser);
+        DeleteIcon.param = {id_advertisement: data.currentTarget.param.id_advertisement, user_email: value.user_email, application: Row};
+        DeleteIcon.addEventListener("click", deleteApplicant);
         Row.appendChild(DeleteIcon);
     }
 }
+
+// Hide applicants
 
 function hideApplicants(data) {
     // Hide applicants button
@@ -131,4 +133,15 @@ function hideApplicants(data) {
     while (data.currentTarget.param.advertisement.childNodes.length > 1) {
         data.currentTarget.param.advertisement.removeChild(data.currentTarget.param.advertisement.lastChild);
     }
+}
+
+// Delete applicant
+
+function deleteApplicant(data) {
+    let Application = data.currentTarget.param.application;
+    $.ajax({type:"POST", url:"../../api/application/delete.php", data:`id_advertisement=${data.currentTarget.param.id_advertisement}&user_email=${data.currentTarget.param.user_email}`, dataType: "json", success: function(data) {
+        Application.remove();
+    }, error: function(data) {
+    
+    }});
 }

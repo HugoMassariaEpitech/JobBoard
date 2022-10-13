@@ -113,49 +113,5 @@ class Advertisement {
             return array("response" => false);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //Search an advertisement
-    public function searchAdvertisement()
-    {
-        $advertisement_name_search = "%" . $this->advertisement_name . "%";
-        $advertisement = $this->connection->prepare("SELECT FROM advertisements WHERE advertisement_name LIKE ?");
-        $advertisement->bindParam(1, htmlspecialchars(strip_tags($advertisement_name_search)));
-        if ($advertisement->execute()) {
-            return true;
-        }
-        return false;
-    }
 }
 ?>

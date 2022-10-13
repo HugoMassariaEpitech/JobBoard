@@ -15,7 +15,7 @@ class Application {
     }
     // Create - Fini
     public function create() {
-        $applications = $this->connection->prepare("SELECT * FROM applications where id_advertisement = ? and user_email = ?");
+        $applications = $this->connection->prepare("SELECT * FROM applications WHERE id_advertisement = ? AND user_email = ?");
         $applications->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
         $applications->bindParam(2, htmlspecialchars(strip_tags($this->user_email)));
         if ($applications->execute()) {
@@ -72,85 +72,16 @@ class Application {
             return array("response" => false);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Read all applies OK
-    public function getApplies()
-    {
-        $applies = $this->connection->prepare("SELECT * FROM applies");
-        if ($applies->execute()) {
-            $result = $applies->fetchAll();
-            return array("response" => true, "result" => $result);
+    // Delete - Fini
+    public function delete() {
+        $application = $this->connection->prepare("DELETE FROM applications WHERE id_advertisement = ? AND user_email = ?");
+        $application->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
+        $application->bindParam(2, htmlspecialchars(strip_tags($this->user_email)));
+        if ($application->execute()) {
+            return array("response" => true);
         } else {
-            return array("response" => false);
-        }
-    }
-    // Read one applies OK
-    public function getSingleApply()
-    {
-        $apply = $this->connection->prepare("SELECT * FROM applies WHERE id_apply = ?");
-        $apply->bindParam("1", $this->id_advertisement);
-        if ($apply->execute()) {
-            $result = $apply->fetchAll();
-            return array("response" => true, "result" => $result);
-        } else {
-            return array("response" => false);
-        }
-    }
-
-    // Delete an apply OK - when ressource is not found ?
-    public function deleteApply()
-    {
-        $headers = apache_request_headers();
-        $tokenParts = explode(".", str_replace("Bearer ", "", $headers["Authorization"]));
-        $payload = base64_decode($tokenParts[1]);
-        $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
-        $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
-        if ($base64UrlSignature == $tokenParts[2]) {
-            if (intval(((array) json_decode($payload))["admin"])) {
-                $apply = $this->connection->prepare("DELETE FROM advertisements WHERE id_apply= ?");
-                $apply->bindParam(1, htmlspecialchars(strip_tags($this->id_apply)));
-                if ($apply->execute()) {
-                    return array("response" => true);
-                } else {
-                    return array("response" => false, "access" => true);
-                }
-            } else {
-                return array("response" => false, "access" => false);
-            }
-        } else {
-            return array("response" => false, "access" => false);
+            return array("response" => false, "access" => true);
         }
     }
 }
+?>
