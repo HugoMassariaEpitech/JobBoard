@@ -4,36 +4,35 @@ $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: 
     if (data.response) {
         if (parseInt(data.admin)) {
             // window.location = "../../admin/advertisements"; // Admin -> Admin
-            $("header").find("button").html("Connexion");
         } else {
-            
+            $("header").find("button").click(function() {
+                $.ajax({type:"POST", url:"../../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
+                        if (data.response) {
+                            window.location = "../../connexion"; // Not connected -> Connexion
+                        }
+                    }, error: function(data) {
+
+                    }});
+            });
         }
     } else {
         // window.location = "../../connexion"; // Not connected -> Connexion
         $("header").find("button").html("Connexion");
+        $("header").find("button").click(function() {
+            window.location = "../../connexion";
+        });
+
     }
 }, error: function(data) {
 
 }});
 
-// LogOut button
-
-$("header").find("button").click(function() {
-    $.ajax({type:"POST", url:"../../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
-        if (data.response) {
-            window.location = "../../connexion"; // Not connected -> Connexion
-        }
-    }, error: function(data) {
-    
-    }});
-});
 
 // Init page
-
 getAdvertisements();
 
-// Get advertisements
 
+// Get advertisements
 function getAdvertisements() {
     $(".LeftSide").find(".Container").find(".Scroll").empty(); // Delete all current advertisement's data
     $.ajax({type:"GET", url:"../../../api/advertisement/read.php", data:"", dataType: "json", success: function(data) {
