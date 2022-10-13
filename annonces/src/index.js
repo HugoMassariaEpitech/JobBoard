@@ -40,11 +40,10 @@ function logIn() {
 }
 
 // Init page
-
 getAdvertisements();
 
-// Get advertisements
 
+// Get advertisements
 function getAdvertisements() {
     $(".LeftSide").find(".Container").find(".Scroll").empty(); // Delete all current advertisement's data
     $.ajax({type:"GET", url:"../../../api/advertisement/read.php", data:"", dataType: "json", success: function(data) {
