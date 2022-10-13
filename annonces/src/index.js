@@ -3,14 +3,13 @@
 $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (parseInt(data.admin)) {
-            // window.location = "../../admin/advertisements"; // Admin -> Admin
-            $("header").find("button").html("Connexion");
+            window.location = "../../admin/advertisements"; // Admin -> Admin
         } else {
-            
+            logOut();
         }
     } else {
-        // window.location = "../../connexion"; // Not connected -> Connexion
         $("header").find("button").html("Connexion");
+        logIn();
     }
 }, error: function(data) {
 
@@ -18,15 +17,27 @@ $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: 
 
 // LogOut button
 
-$("header").find("button").click(function() {
-    $.ajax({type:"POST", url:"../../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
-        if (data.response) {
-            window.location = "../../connexion"; // Not connected -> Connexion
-        }
-    }, error: function(data) {
-    
-    }});
-});
+function logOut() {
+    $("header").find("button").click(function() {
+        $.ajax({type:"POST", url:"../../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
+            if (data.response) {
+                $("header").find("button").html("Connexion");
+                logIn();
+                getAdvertisements();
+            }
+        }, error: function(data) {
+        
+        }});
+    });
+}
+
+// LogIn button
+
+function logIn() {
+    $("header").find("button").click(function() {
+        window.location = "../../connexion"; // Not connected -> Connexion
+    });
+}
 
 // Init page
 
@@ -207,9 +218,18 @@ function displayAdvertisement(data) {
 
 // Apply advertisement
 
-function applyAdvertisement(data) {
-    $.ajax({type:"POST", url:"../../api/application/create.php", data:`id_advertisement=${data.currentTarget.param.id_advertisement}`, dataType: "json", success: function(data) {
-        getAdvertisements();
+function applyAdvertisement(event) {
+    let id_advertisement = event.currentTarget.param.id_advertisement;
+    $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
+        if (data.response) {
+            $.ajax({type:"POST", url:"../../api/application/create.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
+                getAdvertisements();
+            }, error: function(data) {
+            
+            }});
+        } else {
+            displayPopup(id_advertisement);
+        }
     }, error: function(data) {
     
     }});
@@ -223,4 +243,115 @@ function getApplicants(id_advertisement, callback) {
     }, error: function(data) {
     
     }});
+}
+
+// Display popup
+
+function displayPopup(id_advertisement) {
+    // PopUp
+    const PopUp = document.createElement("div");
+    PopUp.setAttribute("class", "PopUp");
+    $("body").append(PopUp);
+    // Panel
+    const Panel = document.createElement("div");
+    Panel.classList.add("Panel");
+    PopUp.appendChild(Panel);
+    // Form
+    const Form = document.createElement("form");
+    Form.setAttribute("class", "Form");
+    Form.setAttribute("id", "Form");
+    Panel.appendChild(Form);
+    // Form -> Firstname
+    const Firstname = document.createElement("div");
+    Firstname.setAttribute("class", "FormElement");
+    Form.appendChild(Firstname);
+    // Form -> Firstname -> Label
+    const FirstnameLabel = document.createElement("label");
+    FirstnameLabel.setAttribute("for", "FirstName");
+    FirstnameLabel.innerHTML = "Firstname";
+    Firstname.appendChild(FirstnameLabel);
+    // Form -> Firstname -> Input
+    const FirstnameInput = document.createElement("input");
+    FirstnameInput.setAttribute("type", "text");
+    FirstnameInput.setAttribute("name", "Firstname");
+    FirstnameInput.setAttribute("id", "FirstName");
+    FirstnameInput.required = true;
+    Firstname.appendChild(FirstnameInput);
+    // Form -> Name
+    const Name = document.createElement("div");
+    Name.setAttribute("class", "FormElement");
+    Form.appendChild(Name);
+    // Form -> Name -> Label
+    const NameLabel = document.createElement("label");
+    NameLabel.setAttribute("for", "Name");
+    NameLabel.innerHTML = "Name";
+    Name.appendChild(NameLabel);
+    // Form -> Firstname -> Input
+    const NameInput = document.createElement("input");
+    NameInput.setAttribute("type", "text");
+    NameInput.setAttribute("name", "Name");
+    NameInput.setAttribute("id", "Name");
+    NameInput.required = true;
+    Name.appendChild(NameInput);
+    // Form -> Email
+    const Email = document.createElement("div");
+    Email.setAttribute("class", "FormElement");
+    Form.appendChild(Email);
+    // Form -> Email -> Label
+    const EmailLabel = document.createElement("label");
+    EmailLabel.setAttribute("for", "Email");
+    EmailLabel.innerHTML = "Email";
+    Email.appendChild(EmailLabel);
+    // Form -> Firstname -> Input
+    const EmailInput = document.createElement("input");
+    EmailInput.setAttribute("type", "email");
+    EmailInput.setAttribute("name", "Email");
+    EmailInput.setAttribute("id", "Email");
+    EmailInput.required = true;
+    Email.appendChild(EmailInput);
+    // Form -> Phone
+    const Phone = document.createElement("div");
+    Phone.setAttribute("class", "FormElement");
+    Form.appendChild(Phone);
+    // Form -> Phone -> Label
+    const PhoneLabel = document.createElement("label");
+    PhoneLabel.setAttribute("for", "Phone");
+    PhoneLabel.innerHTML = "Phone";
+    Phone.appendChild(PhoneLabel);
+    // Form -> Phone -> Input
+    const PhoneInput = document.createElement("input");
+    PhoneInput.setAttribute("type", "tel");
+    PhoneInput.setAttribute("name", "Phone");
+    PhoneInput.setAttribute("id", "Phone");
+    PhoneInput.required = true;
+    Phone.appendChild(PhoneInput);
+    // Footer
+    const Footer = document.createElement("div");
+    Footer.setAttribute("class", "Footer");
+    Panel.appendChild(Footer);
+    // Footer -> Send button
+    const Send = document.createElement("button");
+    Send.setAttribute("form", "Form");
+    Send.setAttribute("type", "submit");
+    Send.innerHTML = "Send";
+    Footer.appendChild(Send);
+    $(".Form").submit(function() {
+        const Data = $(".Form").serializeArray();
+        $.ajax({type:"POST", url:"../../api/application/create.php", data:`id_advertisement=${id_advertisement}&user_firstname=${Data[0].value}&user_name=${Data[1].value}&user_email=${Data[2].value}&user_phone=${Data[3].value}`, dataType: "json", success: function(data) {
+            getAdvertisements();
+            $("body").find(".PopUp").remove();
+            $(".Form").unbind("submit");
+        }, error: function(data) {
+        
+        }});
+        return false;
+    });
+    // Footer -> Cancel button
+    const Cancel = document.createElement("button");
+    Cancel.innerHTML = "Cancel";
+    Footer.appendChild(Cancel);
+    Cancel.addEventListener("click", function() {
+        $("body").find(".PopUp").remove();
+        $(".Form").unbind("submit");
+    });
 }

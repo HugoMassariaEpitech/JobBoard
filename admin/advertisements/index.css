@@ -16,6 +16,113 @@ body {
     flex-direction: column;
 }
 
+.PopUp {
+    /* Set Position and size */
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    /* Design */
+    background-color: #00000099;
+    /* Set Content Display */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.PopUp > .Panel {
+    /* Set Position and size */
+    min-width: 500px;
+    /* Constraints */
+    padding: 30px;
+    /* Design */
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #E9E9E9;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.PopUp > .Panel > .Form {
+    /* Set Position and size */
+    flex: auto;
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.PopUp > .Panel > .Form > .FormElement {
+    /* Design */
+    background-color: white;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+}
+
+.PopUp > .Panel > .Form > .FormElement > label {
+    /* Constraints */
+    padding: 5px;
+    /* Design */
+    color: black;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.PopUp > .Panel > .Form > .FormElement > input {
+    /* Constraints */
+    padding: 10px;
+    /* Design */
+    border: none;
+    background-color: #F8F9FA;
+    border-radius: 20px;
+    color: black;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+.PopUp > .Panel > .Form > .FormMessage {
+    /* Constraints */
+    padding-left: 5px;
+    /* Design */
+    color: red;
+    background-color: white;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.PopUp > .Panel > .Footer {
+    /* Set Content Display */
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.PopUp > .Panel > .Footer > button {
+    /* Set Position and size */
+    width: fit-content;
+    /* Constraints */
+    padding: 10px 20px 10px 20px;
+    /* Design */
+    border: none;
+    background-color: #1A73E8;
+    border-radius: 20px;
+    color: white;
+    font-weight: 300;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.PopUp > .Panel > .Footer > button:last-child {
+    /* Design */
+    background-color: white;
+    color: #1A73E8;
+}
+
+
 header {
     /* Set Position and size */
     flex: 0.1;
@@ -32,7 +139,6 @@ header {
 
 header > div:nth-child(3) {
     /* Design */
-    background-color: white;
     color: black;
     font-weight: 300;
     font-size: 17px;
@@ -148,7 +254,6 @@ main {
     background-color: white;
     /* Set Content Display */
     display: flex;
-    flex-direction: column;
     overflow: scroll;
 }
 

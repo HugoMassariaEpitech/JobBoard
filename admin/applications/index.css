@@ -128,20 +128,25 @@ main {
     background-color: white;
     /* Set Content Display */
     display: flex;
-    flex-direction: row;
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.LeftSide {
+main > div:first-child {
     /* Set Position and size */
-    flex: 1;
+    width: fit-content;
+    /* Constraints */
+    padding: 5px;
     /* Design */
-    background-color: white;
-    /* Set Content Display */
-    display: flex;
+    background-color: #26CE7830;
+    border-radius: 5px;
+    color: #26CE78;
+    font-weight: 300;
+    font-size: 15px;
+    user-select: none;
 }
 
-.LeftSide > .Container {
+main > .Container {
     /* Set Position and size */
     flex: 1;
     /* Design */
@@ -151,28 +156,69 @@ main {
     overflow: scroll;
 }
 
-.LeftSide > .Container::-webkit-scrollbar {
+main > .Container::-webkit-scrollbar {
     display: none;
 }
 
-.LeftSide > .Container > .Scroll {
+main > .Container > .Scroll {
     /* Set Position and size */
     flex: 1;
     height: 0px;
     /* Design */
     background-color: white;
     /* Set Content Display */
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.RightSide {
-    /* Set Position and size */
-    flex: 0.5;
+main > .Container > .Scroll > .Advertisement {
+    /* Constraints */
+    padding: 20px;
+    /* Design */
+    background-color: white;
+    border: 1px solid #E9E9E9;
+    border-radius: 15px;
+    /* Set Content Display */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+main > .Container > .Scroll > .Advertisement > .Row {
     /* Design */
     background-color: white;
     /* Set Content Display */
     display: flex;
-    flex-direction: row;
+    gap: 5px;
+}
+
+main > .Container > .Scroll > .Advertisement > .Row > div {
+    /* Set Position and size */
+    flex: 1;
+    /* Design */
+    font-weight: 300;
+    font-size: 15px;
+    user-select: none;
+}
+
+main > .Container > .Scroll > .Advertisement > .Row > div:first-child {
+    /* Design */
+    font-weight: 400;
+}
+
+main > .Container > .Scroll > .Advertisement > div:nth-child(2) {
+    /* Set Position and size */
+    height: 1px;
+    /* Design */
+    background-color: #E9E9E9;
+}
+
+.material-icons.md-17 {
+    /* Set Position and size */
+    height: 17px;
+    /* Design */
+    font-size: 17px;
+    user-select: none;
+    cursor: pointer;
 }
