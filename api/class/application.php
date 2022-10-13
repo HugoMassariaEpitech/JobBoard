@@ -15,16 +15,30 @@ class Application {
     }
     // Create - Fini
     public function create() {
-        $application = $this->connection->prepare("INSERT INTO applications (id_advertisement, user_firstname, user_name, user_email, user_phone) VALUES (?, ?, ?, ?, ?)");
-        $application->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
-        $application->bindParam(2, htmlspecialchars(strip_tags($this->user_firstname)));
-        $application->bindParam(3, htmlspecialchars(strip_tags($this->user_name)));
-        $application->bindParam(4, htmlspecialchars(strip_tags($this->user_email)));
-        $application->bindParam(5, htmlspecialchars(strip_tags($this->user_phone)));
-        if ($application->execute()) {
-            return array("response" => true);
+
+        $secure = $this->connection->prepare("SELECT * FROM applications where id_advertisement = ? and user_email = ?");
+        $secure->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
+        $secure->bindParam(2, htmlspecialchars(strip_tags($this->user_email)));
+
+        if ($secure->execute()) {
+            $result = $secure->fetch();
+            if (empty($result)) {
+                $apply = $this->connection->prepare("INSERT INTO applications (user_email, id_advertisement, user_phone, user_firstname, user_name) VALUES (?, ?, ?, ?, ?)");
+                $apply->bindParam(1, htmlspecialchars(strip_tags($this->user_email)));
+                $apply->bindParam(2, htmlspecialchars(strip_tags($this->id_advertisement)));
+                $apply->bindParam(3, htmlspecialchars(strip_tags($this->user_phone)));
+                $apply->bindParam(4, htmlspecialchars(strip_tags($this->user_firstname)));
+                $apply->bindParam(5, htmlspecialchars(strip_tags($this->user_name)));
+                if ($apply->execute()) {
+                    return array("response" => true);
+                } else {
+                    return array("response" => false, "message" => "check params");
+                }
+            } else {
+                return array("response" => false, "message" => "Vous avez deja postule");
+            }
         } else {
-            return array("response" => false);
+            return array("response" => false, "message" => "check params");
         }
     }
 

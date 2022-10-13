@@ -194,7 +194,9 @@ function displayAdvertisement(data) {
 
 function applyAdvertisement(data) {
     $.ajax({type:"POST", url:"../../api/application/create.php", data:`id_advertisement=${data.currentTarget.param.id_advertisement}`, dataType: "json", success: function(data) {
-
+        if(data.response){
+            alert("Vous avez postulé");
+        }
     }, error: function(data) {
     
     }});
