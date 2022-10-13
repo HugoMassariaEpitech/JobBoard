@@ -112,8 +112,11 @@ function getAdvertisements() {
                 SubscribersIcon.innerHTML = "group";
                 Subscribers.appendChild(SubscribersIcon);
                 const SubscribersTitle = document.createElement("div");
-                SubscribersTitle.innerHTML = "5";
                 Subscribers.appendChild(SubscribersTitle);
+                // Get advertisement's applicants
+                getApplicants(value.id_advertisement, function(SubscribersCount) {
+                    SubscribersTitle.innerHTML = SubscribersCount.toString();
+                });
             }
         }
     }, error: function(data) {
@@ -219,4 +222,14 @@ function cancel() {
         $(".RightSide").find(".Panel").find(".Footer").find("button").not(":first-child").hide(); // Hide Delete & Cancel Button
         createAdvertisement();
     });
+}
+
+// Get applicants
+
+function getApplicants(id_advertisement, callback) {
+    $.ajax({type:"GET", url:"../../api/application/read.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
+        callback(data.message.length);
+    }, error: function(data) {
+    
+    }});
 }

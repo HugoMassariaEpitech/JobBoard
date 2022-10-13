@@ -18,11 +18,11 @@ class Advertisement {
     public function create() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
-            $payload = base64_decode($tokenParts[1]);
+            $payload = json_decode(base64_decode($tokenParts[1]));
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
             if ($base64UrlSignature == $tokenParts[2]) {
-                if (intval(((array) json_decode($payload))["admin"])) {
+                if (get_object_vars($payload)["admin"]) {
                     $advertisement = $this->connection->prepare("INSERT INTO advertisements (advertisement_name, advertisement_company, advertisement_location, advertisement_type, advertisement_description, advertisement_salary) VALUES (?, ?, ?, ?, ?, ?)");
                     $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->advertisement_name)));
                     $advertisement->bindParam(2, htmlspecialchars(strip_tags($this->advertisement_company)));
@@ -49,11 +49,11 @@ class Advertisement {
     public function update() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
-            $payload = base64_decode($tokenParts[1]);
+            $payload = json_decode(base64_decode($tokenParts[1]));
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
             if ($base64UrlSignature == $tokenParts[2]) {
-                if (intval(((array) json_decode($payload))["admin"])) {
+                if (get_object_vars($payload)["admin"]) {
                     $advertisement = $this->connection->prepare("UPDATE advertisements SET advertisement_name = ?, advertisement_company = ?, advertisement_location = ?, advertisement_type = ?, advertisement_description = ?, advertisement_salary = ? WHERE id_advertisement = ?");
                     $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->advertisement_name)));
                     $advertisement->bindParam(2, htmlspecialchars(strip_tags($this->advertisement_company)));
@@ -81,11 +81,11 @@ class Advertisement {
     public function delete() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
-            $payload = base64_decode($tokenParts[1]);
+            $payload = json_decode(base64_decode($tokenParts[1]));
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
             if ($base64UrlSignature == $tokenParts[2]) {
-                if (intval(((array) json_decode($payload))["admin"])) {
+                if (get_object_vars($payload)["admin"]) {
                     $advertisement = $this->connection->prepare("DELETE FROM advertisements WHERE id_advertisement = ?");
                     $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
                     if ($advertisement->execute()) {

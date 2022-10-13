@@ -5,6 +5,7 @@ class Application {
     // Columns
     public $id_application;
     public $id_advertisement;
+    public $id_user;
     public $user_firstname;
     public $user_name;
     public $user_email;
@@ -15,14 +16,48 @@ class Application {
     }
     // Create - Fini
     public function create() {
-        $application = $this->connection->prepare("INSERT INTO applications (id_advertisement, user_firstname, user_name, user_email, user_phone) VALUES (?, ?, ?, ?, ?)");
+        $application = $this->connection->prepare("INSERT INTO applications (id_advertisement, user_firstname, user_name, user_email, user_phone, id_user) VALUES (?, ?, ?, ?, ?, ?)");
         $application->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
         $application->bindParam(2, htmlspecialchars(strip_tags($this->user_firstname)));
         $application->bindParam(3, htmlspecialchars(strip_tags($this->user_name)));
         $application->bindParam(4, htmlspecialchars(strip_tags($this->user_email)));
         $application->bindParam(5, htmlspecialchars(strip_tags($this->user_phone)));
+        $application->bindParam(6, htmlspecialchars(strip_tags($this->id_user)));
         if ($application->execute()) {
             return array("response" => true);
+        } else {
+            return array("response" => false);
+        }
+    }
+    // Create - Fini
+    public function read() {
+        $application = $this->connection->prepare("SELECT * FROM applications WHERE id_advertisement = ?");
+        $application->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
+        if ($application->execute()) {
+            $result = $application->fetchAll();
+            if (isset($_COOKIE["token"])) {
+                $tokenParts = explode(".", $_COOKIE["token"]);
+                $payload = json_decode(base64_decode($tokenParts[1]));
+                $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
+                $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
+                if ($base64UrlSignature == $tokenParts[2]) {
+                    if (get_object_vars($payload)["admin"]) {
+                        return array("response" => true, "message" => $result);
+                    } else {
+                        foreach ($result as &$applicants) {
+                            if ($applicants["id_user"] == get_object_vars($payload)["id_user"]) {
+                                return array("response" => true, "applicant" => true, "message" => count($result));
+                                break;
+                            }
+                        }
+                        return array("response" => true, "applicant" => false, "message" => count($result));
+                    }
+                } else {
+                    return array("response" => true, "applicant" => false, "message" => count($result));
+                }
+            } else {
+                return array("response" => true, "applicant" => false, "message" => count($result));
+            }
         } else {
             return array("response" => false);
         }

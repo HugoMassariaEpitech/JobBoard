@@ -337,3 +337,10 @@ main {
     font-size: 13px;
     cursor: pointer;
 }
+
+.RightSide > .Panel > .Applied {
+    /* Design */
+    background-color: #F4F5F7;
+    color: black;
+    cursor: auto;
+}

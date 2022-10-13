@@ -19,11 +19,11 @@ class User {
     public function read() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
-            $payload = base64_decode($tokenParts[1]);
+            $payload = json_decode(base64_decode($tokenParts[1]));
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
             if ($base64UrlSignature == $tokenParts[2]) {
-                if (intval(((array) json_decode($payload))["admin"])) {
+                if (get_object_vars($payload)["admin"]) {
                     $users = $this->connection->prepare("SELECT * FROM users WHERE admin=0");
                     if ($users->execute()) {
                         $result = $users->fetchAll();
@@ -45,11 +45,11 @@ class User {
     public function delete() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
-            $payload = base64_decode($tokenParts[1]);
+            $payload = json_decode(base64_decode($tokenParts[1]));
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
             if ($base64UrlSignature == $tokenParts[2]) {
-                if (intval(((array) json_decode($payload))["admin"])) {
+                if (get_object_vars($payload)["admin"]) {
                     $advertisement = $this->connection->prepare("DELETE FROM users WHERE id_user = ?");
                     $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->id_user)));
                     if ($advertisement->execute()) {
@@ -71,11 +71,11 @@ class User {
     public function upgrade() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
-            $payload = base64_decode($tokenParts[1]);
+            $payload = json_decode(base64_decode($tokenParts[1]));
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
             if ($base64UrlSignature == $tokenParts[2]) {
-                if (intval(((array) json_decode($payload))["admin"])) {
+                if (get_object_vars($payload)["admin"]) {
                     $advertisement = $this->connection->prepare("UPDATE users SET admin=1 WHERE id_user = ?");
                     $advertisement->bindParam(1, htmlspecialchars(strip_tags($this->id_user)));
                     if ($advertisement->execute()) {

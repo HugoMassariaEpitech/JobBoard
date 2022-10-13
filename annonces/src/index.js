@@ -3,10 +3,14 @@
 $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (parseInt(data.admin)) {
-            window.location = "../../admin/advertisements"; // Admin -> Admin
+            // window.location = "../../admin/advertisements"; // Admin -> Admin
+            $("header").find("button").html("Connexion");
+        } else {
+            
         }
     } else {
-        window.location = "../../connexion"; // Not connected -> Connexion
+        // window.location = "../../connexion"; // Not connected -> Connexion
+        $("header").find("button").html("Connexion");
     }
 }, error: function(data) {
 
@@ -37,8 +41,6 @@ function getAdvertisements() {
             for (const [key, value] of Object.entries(data.message)) {
                 // Advertisement
                 const Element = document.createElement("div");
-                Element.param = {advertisement: Element, id_advertisement: value.id_advertisement, advertisement_name: value.advertisement_name, advertisement_company: value.advertisement_company, advertisement_location: value.advertisement_location, advertisement_type: value.advertisement_type, advertisement_description: value.advertisement_description, advertisement_salary: value.advertisement_salary};
-                Element.addEventListener("click", displayAdvertisement);
                 $(".LeftSide").find(".Container").find(".Scroll").append(Element);
                 // Advertisement -> Name
                 const Name = document.createElement("div");
@@ -107,10 +109,15 @@ function getAdvertisements() {
                 SubscribersIcon.innerHTML = "group";
                 Subscribers.appendChild(SubscribersIcon);
                 const SubscribersTitle = document.createElement("div");
-                SubscribersTitle.innerHTML = "5";
                 Subscribers.appendChild(SubscribersTitle);
+                // Get advertisement's applicants
+                getApplicants(value.id_advertisement, function(SubscribersCount, ApplicantStatut) {
+                    SubscribersTitle.innerHTML = SubscribersCount.toString();
+                    Element.param = {advertisement: Element, id_advertisement: value.id_advertisement, advertisement_name: value.advertisement_name, advertisement_company: value.advertisement_company, advertisement_location: value.advertisement_location, advertisement_type: value.advertisement_type, advertisement_description: value.advertisement_description, advertisement_salary: value.advertisement_salary, applicant: ApplicantStatut};
+                    Element.addEventListener("click", displayAdvertisement);
+                    $("main").find(".LeftSide").find(".Container").find(".Scroll").find("div").first().click(); // Display first advertisement
+                });
             }
-            $("main").find(".LeftSide").find(".Container").find(".Scroll").find("div").first().click(); // Display first advertisement
         }
     }, error: function(data) {
     
@@ -183,18 +190,36 @@ function displayAdvertisement(data) {
     DescriptionContent.innerHTML = data.currentTarget.param.advertisement_description;
     Description.appendChild(DescriptionContent);
     // Apply button
-    const Button = document.createElement("button");
-    Button.innerHTML = "Apply";
-    Button.param = {id_advertisement: data.currentTarget.param.id_advertisement};
-    Button.addEventListener("click", applyAdvertisement);
-    $(".RightSide").find(".Panel").append(Button);
+    if (data.currentTarget.param.applicant) {
+        const Button = document.createElement("button");
+        Button.classList.add("Applied");
+        Button.innerHTML = "Applied";
+        Button.param = {id_advertisement: data.currentTarget.param.id_advertisement};
+        $(".RightSide").find(".Panel").append(Button);
+    } else {
+        const Button = document.createElement("button");
+        Button.innerHTML = "Apply";
+        Button.param = {id_advertisement: data.currentTarget.param.id_advertisement};
+        Button.addEventListener("click", applyAdvertisement);
+        $(".RightSide").find(".Panel").append(Button);
+    }
 }
 
-// Apply Advertisement
+// Apply advertisement
 
 function applyAdvertisement(data) {
     $.ajax({type:"POST", url:"../../api/application/create.php", data:`id_advertisement=${data.currentTarget.param.id_advertisement}`, dataType: "json", success: function(data) {
+        getAdvertisements();
+    }, error: function(data) {
+    
+    }});
+}
 
+// Get applicants
+
+function getApplicants(id_advertisement, callback) {
+    $.ajax({type:"GET", url:"../../api/application/read.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
+        callback(data.message, data.applicant);
     }, error: function(data) {
     
     }});
