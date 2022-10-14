@@ -11,7 +11,7 @@ $advertisement_location = $_POST["advertisement_location"];
 $advertisement_type = $_POST["advertisement_type"];
 $advertisement_description = $_POST["advertisement_description"];
 $advertisement_salary = $_POST["advertisement_salary"];
-if (isset($advertisement_name) && ($advertisement_name != "") && isset($advertisement_company) && ($advertisement_company != "") && isset($advertisement_location) && ($advertisement_location != "") && isset($advertisement_type) && ($advertisement_type != "") && isset($advertisement_description) && ($advertisement_description != "") && isset($advertisement_salary) && ($advertisement_salary != "")) {
+if (isset($advertisement_name) && ($advertisement_name != "") && (!ctype_space($advertisement_name)) && isset($advertisement_company) && ($advertisement_company != "") && (!ctype_space($advertisement_company)) && isset($advertisement_location) && ($advertisement_location != "") && (!ctype_space($advertisement_location)) && isset($advertisement_type) && ($advertisement_type != "")  && (!ctype_space($advertisement_type))  && isset($advertisement_description) && ($advertisement_description != "") && (!ctype_space($advertisement_description)) && isset($advertisement_salary) && ($advertisement_salary != "") && (!ctype_space($advertisement_salary))) {
     $class->advertisement_name = $advertisement_name;
     $class->advertisement_company = $advertisement_company;
     $class->advertisement_location = $advertisement_location;

@@ -8,7 +8,7 @@ $class = new User($database);
 $user_firstname = $_POST["user_firstname"];
 $user_name = $_POST["user_name"];
 $user_phone = $_POST["user_phone"];
-if (isset($user_firstname) && ($user_firstname != "") && isset($user_name) && ($user_name != "") && isset($user_phone) && ($user_phone != "")) {
+if (isset($user_firstname) && ($user_firstname != "") && (!ctype_space($user_firstname))  && isset($user_name) && ($user_name != "") && (!ctype_space($user_name))  && isset($user_phone) && ($user_phone != "") && (!ctype_space($user_phone)) && (preg_match("'^(?:7|0\d|\+94\d)\d{8}$'", $user_phone))){
     $class->user_firstname = $user_firstname;
     $class->user_name = $user_name;
     $class->user_phone = $user_phone;
