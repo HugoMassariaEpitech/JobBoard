@@ -116,7 +116,7 @@ function displayApplicants(data) {
         const DeleteIcon = document.createElement("span");
         DeleteIcon.classList.add("material-icons", "md-17");
         DeleteIcon.innerHTML = "person_remove";
-        DeleteIcon.param = {id_advertisement: data.currentTarget.param.id_advertisement, user_email: value.user_email, application: Row};
+        DeleteIcon.param = {id_advertisement: data.currentTarget.param.id_advertisement, user_email: value.user_email, applicants: data.currentTarget.param.applicants, application: Row, icon: data.currentTarget};
         DeleteIcon.addEventListener("click", deleteApplicant);
         Row.appendChild(DeleteIcon);
     }
@@ -138,9 +138,10 @@ function hideApplicants(data) {
 // Delete applicant
 
 function deleteApplicant(data) {
-    let Application = data.currentTarget.param.application;
+    data.currentTarget.param.icon.param.applicants = data.currentTarget.param.applicants.filter((obj) => obj.user_email != data.currentTarget.param.user_email);
+    let application = data.currentTarget.param.application;
     $.ajax({type:"POST", url:"../../api/application/delete.php", data:`id_advertisement=${data.currentTarget.param.id_advertisement}&user_email=${data.currentTarget.param.user_email}`, dataType: "json", success: function(data) {
-        Application.remove();
+        application.remove();
     }, error: function(data) {
     
     }});
