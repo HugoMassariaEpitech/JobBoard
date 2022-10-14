@@ -116,12 +116,13 @@ body {
     cursor: pointer;
 }
 
-.PopUp > .Panel > .Footer > button:last-child {
+.PopUp > .Panel > .Footer > button:nth-child(2) {
+    /* Constraints */
+    margin-left: auto;
     /* Design */
     background-color: white;
     color: #1A73E8;
 }
-
 
 header {
     /* Set Position and size */
@@ -137,92 +138,28 @@ header {
     gap: 20px;
 }
 
-header > div:nth-child(3) {
-    /* Design */
-    color: black;
-    font-weight: 300;
-    font-size: 17px;
-    cursor: pointer;
-    user-select: none;
-}
-
 header > div:first-child {
     /* Design */
     color: #1A73E8;
     font-family: "Sniglet";
     font-size: 25px;
+    user-select: none;
 }
 
 header > .Menu {
     /* Set Position and size */
     flex: auto;
-    height: 100%;
-    /* Design */
-    background-color: white;
-    /* Set Content Display */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
 }
 
-header > .Menu > .Item, header > .Menu > .ItemSelected {
-    /* Set Position and size */
-    height: 100%;
+.material-icons.md-20 {
     /* Design */
-    background-color: white;
-    cursor: pointer;
-    /* Set Content Display */
-    display: flex;
-    flex-direction: column;
-}
-
-header > .Menu > .Item:hover div:nth-child(2) {
-    /* Design */
-    background-color: #1A73E8;
-}
-
-header > .Menu > .Item > div:first-child, header > .Menu > .ItemSelected > div:first-child {
-    /* Set Position and size */
-    flex: auto;
-    /* Design */
-    font-size: 17px;
-    font-weight: 300;
+    height: 25px;
+    font-size: 25px;
     user-select: none;
-    /* Set Content Display */
-    display: flex;
-    align-items:center;
-    justify-content:center;
-}
-
-header > .Menu > .ItemSelected > div:first-child {
-    /* Design */
-    color: #1A73E8;
-    font-weight: 400;
-}
-
-header > .Menu > .Item > div:nth-child(2), header > .Menu > .ItemSelected > div:nth-child(2) {
-    /* Set Position and size */
-    height: 2px;
-    /* Design */
-    background-color: white;
-}
-
-header > .Menu > .ItemSelected > div:nth-child(2) {
-    /* Design */
-    background-color: #1A73E8;
-}
-
-header > button {
-    /* Design */
-    font-family: "Roboto", sans-serif;
-    border: none;
-    background-color: white;
-    color: #1A73E8;
-    font-weight: 300;
-    font-size: 17px;
-    cursor: pointer;
+    color: black;
     user-select: none;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
 }
 
 main {

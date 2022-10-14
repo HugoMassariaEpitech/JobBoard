@@ -134,5 +134,37 @@ class User {
             return array("response" => false);
         }
     }
+    // Update - Fini -
+    public function update() {
+        if (isset($_COOKIE["token"])) {
+            $tokenParts = explode(".", $_COOKIE["token"]);
+            $payload = json_decode(base64_decode($tokenParts[1]));
+            $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
+            $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
+            if ($base64UrlSignature == $tokenParts[2]) {
+                $user = $this->connection->prepare("UPDATE users SET user_firstname = ?, user_name = ?, user_phone = ? WHERE id_user = ?");
+                $user->bindParam(1, htmlspecialchars(strip_tags($this->user_firstname)));
+                $user->bindParam(2, htmlspecialchars(strip_tags($this->user_name)));
+                $user->bindParam(3, htmlspecialchars(strip_tags($this->user_phone)));
+                $user->bindParam(4, htmlspecialchars(strip_tags(get_object_vars($payload)["id_user"])));
+                if ($user->execute()) {
+                    $header = json_encode(["tokenType" => "JWT", "algorithm" => "HS256"]);
+                    $payload = json_encode(["id_user" => get_object_vars($payload)["id_user"], "user_firstname" => htmlspecialchars(strip_tags($this->user_firstname)), "user_name" => htmlspecialchars(strip_tags($this->user_name)), "user_birthdate" => get_object_vars($payload)["user_birthdate"], "user_phone" => htmlspecialchars(strip_tags($this->user_phone)), "user_email" => get_object_vars($payload)["user_email"], "admin" => get_object_vars($payload)["admin"]]);
+                    $base64UrlHeader = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($header));
+                    $base64UrlPayload = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($payload));
+                    $signature = hash_hmac("sha256", $base64UrlHeader . "." . $base64UrlPayload, "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
+                    $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
+                    $JWT = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+                    return array("response" => true, "result" => $JWT);
+                } else {
+                    return array("response" => false, "access" => true);
+                }
+            } else {
+                return array("response" => false, "access" => false);
+            }
+        } else {
+            return array("response" => false, "access" => false);
+        }
+    }
 }
 ?>

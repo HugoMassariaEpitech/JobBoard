@@ -5,43 +5,36 @@ $.ajax({type:"POST", url:"../api/connexion/checkLog.php", data:"", dataType: "js
         if (parseInt(data.admin)) {
             window.location = "../admin/advertisements"; // Admin -> Admin
         } else {
-            logOut();
+            manageUser(data.message);
         }
     } else {
-        $("header").find("button").html("Connexion");
         logIn();
     }
 }, error: function(data) {
 
 }});
 
-// LogOut button
-
-function logOut() {
-    $("header").find("button").click(function() {
-        $.ajax({type:"POST", url:"../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
-            if (data.response) {
-                $("header").find("button").html("Connexion");
-                logIn();
-                getAdvertisements();
-            }
-        }, error: function(data) {
-        
-        }});
-    });
-}
-
 // LogIn button
 
 function logIn() {
-    $("header").find("button").click(function() {
+    $("header").find("span").unbind("click");
+    $("header").find("span").click(function() {
         window.location = "../connexion"; // Not connected -> Connexion
     });
 }
 
-// Init page
-getAdvertisements();
+// Manage user button
 
+function manageUser(data) {
+    $("header").find("span").unbind("click");
+    $("header").find("span").click(function() {
+        displayPopupLog(data);
+    });
+}
+
+// Init page
+
+getAdvertisements();
 
 // Get advertisements
 function getAdvertisements() {
@@ -227,7 +220,7 @@ function applyAdvertisement(event) {
             
             }});
         } else {
-            displayPopup(id_advertisement);
+            displayPopupApplication(id_advertisement);
         }
     }, error: function(data) {
     
@@ -244,9 +237,9 @@ function getApplicants(id_advertisement, callback) {
     }});
 }
 
-// Display popup
+// Display popup -> Application
 
-function displayPopup(id_advertisement) {
+function displayPopupApplication(id_advertisement) {
     // PopUp
     const PopUp = document.createElement("div");
     PopUp.setAttribute("class", "PopUp");
@@ -285,7 +278,7 @@ function displayPopup(id_advertisement) {
     NameLabel.setAttribute("for", "Name");
     NameLabel.innerHTML = "Name";
     Name.appendChild(NameLabel);
-    // Form -> Firstname -> Input
+    // Form -> Name -> Input
     const NameInput = document.createElement("input");
     NameInput.setAttribute("type", "text");
     NameInput.setAttribute("name", "Name");
@@ -301,7 +294,7 @@ function displayPopup(id_advertisement) {
     EmailLabel.setAttribute("for", "Email");
     EmailLabel.innerHTML = "Email";
     Email.appendChild(EmailLabel);
-    // Form -> Firstname -> Input
+    // Form -> Email -> Input
     const EmailInput = document.createElement("input");
     EmailInput.setAttribute("type", "email");
     EmailInput.setAttribute("name", "Email");
@@ -352,5 +345,122 @@ function displayPopup(id_advertisement) {
     Cancel.addEventListener("click", function() {
         $("body").find(".PopUp").remove();
         $(".Form").unbind("submit");
+    });
+}
+
+// Display popup -> Application
+
+function displayPopupLog(data) {
+    // PopUp
+    const PopUp = document.createElement("div");
+    PopUp.setAttribute("class", "PopUp");
+    $("body").append(PopUp);
+    // Panel
+    const Panel = document.createElement("div");
+    Panel.classList.add("Panel");
+    PopUp.appendChild(Panel);
+    // Form
+    const Form = document.createElement("form");
+    Form.setAttribute("class", "Form");
+    Form.setAttribute("id", "Form");
+    Panel.appendChild(Form);
+    // Form -> Firstname
+    const Firstname = document.createElement("div");
+    Firstname.setAttribute("class", "FormElement");
+    Form.appendChild(Firstname);
+    // Form -> Firstname -> Label
+    const FirstnameLabel = document.createElement("label");
+    FirstnameLabel.setAttribute("for", "FirstName");
+    FirstnameLabel.innerHTML = "Firstname";
+    Firstname.appendChild(FirstnameLabel);
+    // Form -> Firstname -> Input
+    const FirstnameInput = document.createElement("input");
+    FirstnameInput.setAttribute("type", "text");
+    FirstnameInput.setAttribute("name", "Firstname");
+    FirstnameInput.setAttribute("id", "FirstName");
+    FirstnameInput.required = true;
+    FirstnameInput.value = data.user_firstname;
+    Firstname.appendChild(FirstnameInput);
+    // Form -> Name
+    const Name = document.createElement("div");
+    Name.setAttribute("class", "FormElement");
+    Form.appendChild(Name);
+    // Form -> Name -> Label
+    const NameLabel = document.createElement("label");
+    NameLabel.setAttribute("for", "Name");
+    NameLabel.innerHTML = "Name";
+    Name.appendChild(NameLabel);
+    // Form -> Name -> Input
+    const NameInput = document.createElement("input");
+    NameInput.setAttribute("type", "text");
+    NameInput.setAttribute("name", "Name");
+    NameInput.setAttribute("id", "Name");
+    NameInput.required = true;
+    NameInput.value = data.user_name;
+    Name.appendChild(NameInput);
+    // Form -> Phone
+    const Phone = document.createElement("div");
+    Phone.setAttribute("class", "FormElement");
+    Form.appendChild(Phone);
+    // Form -> Phone -> Label
+    const PhoneLabel = document.createElement("label");
+    PhoneLabel.setAttribute("for", "Phone");
+    PhoneLabel.innerHTML = "Phone";
+    Phone.appendChild(PhoneLabel);
+    // Form -> Phone -> Input
+    const PhoneInput = document.createElement("input");
+    PhoneInput.setAttribute("type", "tel");
+    PhoneInput.setAttribute("name", "Phone");
+    PhoneInput.setAttribute("id", "Phone");
+    PhoneInput.required = true;
+    PhoneInput.value = data.user_phone;
+    Phone.appendChild(PhoneInput);
+    // Footer
+    const Footer = document.createElement("div");
+    Footer.setAttribute("class", "Footer");
+    Panel.appendChild(Footer);
+    // Footer -> Update button
+    const Update = document.createElement("button");
+    Update.setAttribute("form", "Form");
+    Update.setAttribute("type", "submit");
+    Update.innerHTML = "Update";
+    Footer.appendChild(Update);
+    $(".Form").submit(function() {
+        const Data = $(".Form").serializeArray();
+        $.ajax({type:"POST", url:"../api/user/update.php", data:`user_firstname=${Data[0].value}&user_name=${Data[1].value}&user_phone=${Data[2].value}`, dataType: "json", success: function(data) {
+            if (data.response) {
+                $("body").find(".PopUp").remove();
+                $(".Form").unbind("submit");
+                manageUser({user_firstname: Data[0].value, user_name: Data[1].value, user_phone: Data[2].value});
+            }
+        }, error: function(data) {
+        
+        }});
+        console.log(Data);
+        return false;
+    });
+    // Footer -> Cancel button
+    const Cancel = document.createElement("button");
+    Cancel.innerHTML = "Cancel";
+    Footer.appendChild(Cancel);
+    Cancel.addEventListener("click", function() {
+        $("body").find(".PopUp").remove();
+        $(".Form").unbind("submit");
+    });
+    // Footer -> Logout button
+    const Logout = document.createElement("button");
+    Logout.innerHTML = "Logout";
+    Footer.appendChild(Logout);
+    Logout.addEventListener("click", function() {
+        $.ajax({type:"POST", url:"../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
+            if (data.response) {
+                $("body").find(".PopUp").remove();
+                $(".Form").unbind("submit");
+                logIn();
+                getAdvertisements();
+            }
+        }, error: function(data) {
+        
+        }});
     });
 }

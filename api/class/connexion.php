@@ -49,7 +49,11 @@ class Connexion {
             $signature = hash_hmac("sha256", $tokenParts[0] . "." . $tokenParts[1], "90zgLEniSbKFrV6OJjVa825KcTI1JC7m", true);
             $base64UrlSignature = str_replace(["+", "/", "="], ["-", "_", ""], base64_encode($signature));
             if ($base64UrlSignature == $tokenParts[2]) {
-                return array("response" => true, "result" => $payload);
+                if (get_object_vars($payload)["admin"]) {
+                    return array("response" => true, "admin" => true);
+                } else {
+                    return array("response" => true, "admin" => false, "result" => array("user_firstname" => get_object_vars($payload)["user_firstname"], "user_name" => get_object_vars($payload)["user_name"], "user_phone" => get_object_vars($payload)["user_phone"]));
+                }
             } else {
                 return array("response" => false);
             }
