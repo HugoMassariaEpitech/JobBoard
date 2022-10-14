@@ -1,6 +1,6 @@
 # T-WEB-501-LIL-5-1-jobboard-hugo.massaria
 
-#titre Readme du Projet Job-Board fait par Hugo Massaria et Elies Hariate
+#title Readme du Projet Job-Board fait par Hugo Massaria et Elies Hariate
 
 ##titre Description du projet 
 
