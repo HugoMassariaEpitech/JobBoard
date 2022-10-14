@@ -3,7 +3,7 @@
 $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (!parseInt(data.admin)) {
-            window.location = "../../annonces"; // Not admin -> Public
+            window.location = "../../"; // Not admin -> Public
         }
     } else {
         window.location = "../../connexion"; // Not connected -> Connexion

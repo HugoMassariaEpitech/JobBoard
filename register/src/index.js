@@ -5,7 +5,7 @@ $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: 
         if (parseInt(data.admin)) {
             window.location = "../../admin/advertisements";
         } else {
-            window.location = "../../annonces";
+            window.location = "../../";
         }
     }
 }, error: function(data) {
@@ -23,7 +23,7 @@ $(".Form").submit(function() {
 function register(civility, firstname, name, birthdate, phone, email, password, passwordConfirmation) {
     $.ajax({type:"POST", url:"../../api/user/create.php", data:`user_civility=${civility}&user_firstname=${firstname}&user_name=${name}&user_birthdate=${birthdate}&user_phone=${phone}&user_email=${email}&user_password=${password}&password_confirmation=${passwordConfirmation}`, dataType: "json", success: function(data) {
         if (data.response) {
-            window.location = "../../annonces";
+            window.location = "../../";
         } else {
             $(".Form").find(".FormMessage").html(data.message);
         }

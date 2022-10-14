@@ -1,9 +1,9 @@
 // Check Connexion
 
-$.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
+$.ajax({type:"POST", url:"../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (parseInt(data.admin)) {
-            window.location = "../../admin/advertisements"; // Admin -> Admin
+            window.location = "../admin/advertisements"; // Admin -> Admin
         } else {
             logOut();
         }
@@ -19,7 +19,7 @@ $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: 
 
 function logOut() {
     $("header").find("button").click(function() {
-        $.ajax({type:"POST", url:"../../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
+        $.ajax({type:"POST", url:"../api/connexion/logOut.php", data:"", dataType: "json", success: function(data) {
             if (data.response) {
                 $("header").find("button").html("Connexion");
                 logIn();
@@ -35,7 +35,7 @@ function logOut() {
 
 function logIn() {
     $("header").find("button").click(function() {
-        window.location = "../../connexion"; // Not connected -> Connexion
+        window.location = "../connexion"; // Not connected -> Connexion
     });
 }
 
@@ -46,7 +46,7 @@ getAdvertisements();
 // Get advertisements
 function getAdvertisements() {
     $(".LeftSide").find(".Container").find(".Scroll").empty(); // Delete all current advertisement's data
-    $.ajax({type:"GET", url:"../../../api/advertisement/read.php", data:"", dataType: "json", success: function(data) {
+    $.ajax({type:"GET", url:"../api/advertisement/read.php", data:"", dataType: "json", success: function(data) {
         if (data.response) {
             for (const [key, value] of Object.entries(data.message)) {
                 // Advertisement
@@ -219,9 +219,9 @@ function displayAdvertisement(data) {
 
 function applyAdvertisement(event) {
     let id_advertisement = event.currentTarget.param.id_advertisement;
-    $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
+    $.ajax({type:"POST", url:"../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
         if (data.response) {
-            $.ajax({type:"POST", url:"../../api/application/create.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
+            $.ajax({type:"POST", url:"../api/application/create.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
                 getAdvertisements();
             }, error: function(data) {
             
@@ -237,7 +237,7 @@ function applyAdvertisement(event) {
 // Get applicants
 
 function getApplicants(id_advertisement, callback) {
-    $.ajax({type:"GET", url:"../../api/application/read.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
+    $.ajax({type:"GET", url:"../api/application/read.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
         callback(data.message, data.applicant);
     }, error: function(data) {
     
@@ -336,7 +336,7 @@ function displayPopup(id_advertisement) {
     Footer.appendChild(Send);
     $(".Form").submit(function() {
         const Data = $(".Form").serializeArray();
-        $.ajax({type:"POST", url:"../../api/application/create.php", data:`id_advertisement=${id_advertisement}&user_firstname=${Data[0].value}&user_name=${Data[1].value}&user_email=${Data[2].value}&user_phone=${Data[3].value}`, dataType: "json", success: function(data) {
+        $.ajax({type:"POST", url:"../api/application/create.php", data:`id_advertisement=${id_advertisement}&user_firstname=${Data[0].value}&user_name=${Data[1].value}&user_email=${Data[2].value}&user_phone=${Data[3].value}`, dataType: "json", success: function(data) {
             getAdvertisements();
             $("body").find(".PopUp").remove();
             $(".Form").unbind("submit");

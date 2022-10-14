@@ -5,7 +5,7 @@ $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: 
         if (parseInt(data.admin)) {
             window.location = "../../admin/advertisements";
         } else {
-            window.location = "../../annonces";
+            window.location = "../../";
         }
     }
 }, error: function(data) {
@@ -26,7 +26,7 @@ function logIn(email, password) {
             if (parseInt(data.admin)) {
                 window.location = "../../admin/advertisements";
             } else {
-                window.location = "../../annonces";
+                window.location = "../../";
             }
         } else {
             $(".Form").find(".FormMessage").html(data.message);
