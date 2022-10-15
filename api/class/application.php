@@ -1,10 +1,14 @@
 <?php
+require "../../vendor/autoload.php";
+use Mailgun\Mailgun;
 class Application {
     // Connection
     private $connection;
     // Columns
     public $id_application;
     public $id_advertisement;
+    public $advertisement_name;
+    public $advertisement_company;
     public $user_firstname;
     public $user_name;
     public $user_email;
@@ -13,7 +17,7 @@ class Application {
     public function __construct($config) {
         $this->connection = $config;
     }
-    // Create - Fini
+    // Create
     public function create() {
         $applications = $this->connection->prepare("SELECT * FROM applications WHERE id_advertisement = ? AND user_email = ?");
         $applications->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
@@ -28,6 +32,24 @@ class Application {
                 $application->bindParam(4, htmlspecialchars(strip_tags($this->user_email)));
                 $application->bindParam(5, htmlspecialchars(strip_tags($this->user_phone)));
                 if ($application->execute()) {
+                    // Send email to applicant
+                    $mailuser = Mailgun::create("ed8c9d39611d6e7ac6e11e70fb309fa7-b0ed5083-ac6250a1", "https://api.eu.mailgun.net");
+                    $mailuser->messages()->send("employme.fr", [
+                        "from" => "Employ.me <noreply@employme.fr>",
+                        "to" => $this->user_email,
+                        "subject" => "Successfully applied !",
+                        "template" => "applied",
+                        "h:X-Mailgun-Variables" => sprintf('{"user_firstname": "%s", "user_name": "%s", "advertisement_name": "%s", "advertisement_company": "%s"}', $this->user_firstname, $this->user_name, $this->advertisement_name, $this->advertisement_company)
+                    ]);
+                    // Send email to admin
+                    $mailadmin = Mailgun::create("ed8c9d39611d6e7ac6e11e70fb309fa7-b0ed5083-ac6250a1", "https://api.eu.mailgun.net");
+                    $mailadmin->messages()->send("employme.fr", [
+                        "from" => "Employ.me <noreply@employme.fr>",
+                        "to" => "epitech.employme@gmail.com",
+                        "subject" => "Successfully applied !",
+                        "template" => "admin",
+                        "h:X-Mailgun-Variables" => sprintf('{"user_firstname": "%s", "user_name": "%s", "advertisement_name": "%s", "advertisement_company": "%s"}', $this->user_firstname, $this->user_name, $this->advertisement_name, $this->advertisement_company)
+                    ]);
                     return array("response" => true);
                 } else {
                     return array("response" => false, "applied" => false);
@@ -39,7 +61,7 @@ class Application {
             return array("response" => false, "applied" => false);
         }
     }
-    // Read - Fini
+    // Read
     public function read() {
         $application = $this->connection->prepare("SELECT * FROM applications WHERE id_advertisement = ?");
         $application->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));
@@ -72,7 +94,7 @@ class Application {
             return array("response" => false);
         }
     }
-    // Delete - Fini
+    // Delete
     public function delete() {
         $application = $this->connection->prepare("DELETE FROM applications WHERE id_advertisement = ? AND user_email = ?");
         $application->bindParam(1, htmlspecialchars(strip_tags($this->id_advertisement)));

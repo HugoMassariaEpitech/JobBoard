@@ -1,5 +1,4 @@
 <?php
-/* Fini */
 include_once "../config/database.php";
 include_once "../class/connexion.php";
 $config = new Database();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : jeu. 13 oct. 2022 à 15:29
+-- Généré le : sam. 15 oct. 2022 à 16:09
 -- Version du serveur :  5.7.34
 -- Version de PHP : 7.4.21
 
@@ -69,9 +69,7 @@ CREATE TABLE `applications` (
 --
 
 INSERT INTO `applications` (`id_application`, `user_email`, `id_advertisement`, `user_phone`, `user_firstname`, `user_name`) VALUES
-(29, 'hugo.merrir@gmail.com', 24, '0612546789', 'Hugo', 'Merrir'),
-(30, 'hugo.merrir@gmail.com', 26, '0612546789', 'Hugo', 'Merrir'),
-(32, 'hugo.merrir@gmail.com', 28, '0612546789', 'Hugo', 'Merrir');
+(7, 'epitech.employme@gmail.com', 24, '0627495848', 'Epitech', 'employme');
 
 -- --------------------------------------------------------
 
@@ -96,8 +94,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `user_name`, `admin`, `user_email`, `user_phone`, `user_birthdate`, `user_civility`, `user_password`, `user_firstname`) VALUES
-(22, 'Massaria', 1, 'hugo.massaria@gmail.com', '0627495848', '1999-09-01', 'M.', '$2y$10$UugP3gdZ5gPfQ2u1NMqvSOcOduaVXGsfd8vDzp/ZKfBeDRZJM8ciW', 'Hugo'),
-(24, 'Merrir', 0, 'hugo.merrir@gmail.com', '0612546789', '1999-04-01', 'M.', '$2y$10$yugEaXsuLJOf8niizoOejenfwxRt2rpOvhMZokmtlhAJDAOJYGfY2', 'Hugo');
+(1, 'employme', 1, 'epitech.employme@gmail.com', '0627495848', '1999-09-01', 'M.', '$2y$10$EpoiqntWNO7jcvJAizsdGew2n4rttj5II8OywAt2oeIQ1RnShiPOi', 'Epitech');
 
 --
 -- Index pour les tables déchargées
@@ -129,19 +126,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `advertisements`
 --
 ALTER TABLE `advertisements`
-  MODIFY `id_advertisement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_advertisement` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id_application` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_application` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -15,7 +15,7 @@ class Connexion {
     public function __construct($config) {
         $this->connection = $config;
     }
-    // LogIn - Fini -
+    // LogIn
     public function logIn() {
         $user = $this->connection->prepare("SELECT * FROM users WHERE user_email = ?");
         $user->bindParam("1", $this->user_email);
@@ -41,7 +41,7 @@ class Connexion {
             return array("response" => false);
         }
     }
-    // Check Log - Fini -
+    // Check Log
     public function checkLog() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);

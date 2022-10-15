@@ -116,12 +116,15 @@ body {
     cursor: pointer;
 }
 
-.PopUp > .Panel > .Footer > button:nth-child(2) {
-    /* Constraints */
-    margin-left: auto;
+.PopUp > .Panel > .Footer > button:nth-child(2), .PopUp > .Panel > .Footer > button:nth-child(3) {
     /* Design */
     background-color: white;
     color: #1A73E8;
+}
+
+.PopUp > .Panel > .Footer > button:nth-child(2) {
+    /* Constraints */
+    margin-left: auto;
 }
 
 header {
@@ -156,7 +159,7 @@ header > .Menu {
     height: 25px;
     font-size: 25px;
     user-select: none;
-    color: black;
+    color: #1A73E8;
     user-select: none;
     cursor: pointer;
     -webkit-font-smoothing: antialiased;

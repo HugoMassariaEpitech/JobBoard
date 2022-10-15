@@ -3,16 +3,16 @@
 $.ajax({type:"POST", url:"../../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
     if (data.response) {
         if (parseInt(data.admin)) {
-            window.location = "../../admin/advertisements";
+            window.location = "../../admin/advertisements"; // Admin Panel
         } else {
-            window.location = "../../";
+            window.location = "../../"; // Already logged
         }
     }
 }, error: function(data) {
 
 }});
 
-// Register Button
+// Register button
 
 $(".Form").submit(function() {
     const Data = $(".Form").serializeArray();
@@ -32,7 +32,7 @@ function register(civility, firstname, name, birthdate, phone, email, password, 
     }});
 }
 
-// Connexion Button
+// Connexion button
 
 $(".Footer").find("button").not(":first-child").click(function() {
     window.location = "../../connexion";

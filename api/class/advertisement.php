@@ -14,7 +14,7 @@ class Advertisement {
     public function __construct($config) {
         $this->connection = $config;
     }
-    // Create - Fini
+    // Create
     public function create() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -45,7 +45,7 @@ class Advertisement {
             return array("response" => false, "access" => false);
         }
     }
-    // Update - Fini - when ressource is not found ?
+    // Update
     public function update() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -77,7 +77,7 @@ class Advertisement {
             return array("response" => false, "access" => false);
         }
     }
-    // Delete - Fini - when ressource is not found ?
+    // Delete
     public function delete() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -103,7 +103,7 @@ class Advertisement {
             return array("response" => false, "access" => false);
         }
     }
-    // Read - Fini -
+    // Read
     public function read() {
         $advertisements = $this->connection->prepare("SELECT * FROM advertisements");
         if ($advertisements->execute()) {

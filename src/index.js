@@ -202,7 +202,7 @@ function displayAdvertisement(data) {
     } else {
         const Button = document.createElement("button");
         Button.innerHTML = "Apply";
-        Button.param = {id_advertisement: data.currentTarget.param.id_advertisement};
+        Button.param = {id_advertisement: data.currentTarget.param.id_advertisement, advertisement_name: data.currentTarget.param.advertisement_name, advertisement_company: data.currentTarget.param.advertisement_company};
         Button.addEventListener("click", applyAdvertisement);
         $(".RightSide").find(".Panel").append(Button);
     }
@@ -212,15 +212,17 @@ function displayAdvertisement(data) {
 
 function applyAdvertisement(event) {
     let id_advertisement = event.currentTarget.param.id_advertisement;
+    let advertisement_name = event.currentTarget.param.advertisement_name;
+    let advertisement_company = event.currentTarget.param.advertisement_company;
     $.ajax({type:"POST", url:"../api/connexion/checkLog.php", data:"", dataType: "json", success: function(data) {
         if (data.response) {
-            $.ajax({type:"POST", url:"../api/application/create.php", data:`id_advertisement=${id_advertisement}`, dataType: "json", success: function(data) {
+            $.ajax({type:"POST", url:"../api/application/create.php", data:`id_advertisement=${id_advertisement}&advertisement_name=${advertisement_name}&advertisement_company=${advertisement_company}`, dataType: "json", success: function(data) {
                 getAdvertisements();
             }, error: function(data) {
             
             }});
         } else {
-            displayPopupApplication(id_advertisement);
+            displayPopupApplication(id_advertisement, advertisement_name, advertisement_company);
         }
     }, error: function(data) {
     
@@ -239,7 +241,7 @@ function getApplicants(id_advertisement, callback) {
 
 // Display popup -> Application
 
-function displayPopupApplication(id_advertisement) {
+function displayPopupApplication(id_advertisement, advertisement_name, advertisement_company) {
     // PopUp
     const PopUp = document.createElement("div");
     PopUp.setAttribute("class", "PopUp");
@@ -315,8 +317,13 @@ function displayPopupApplication(id_advertisement) {
     PhoneInput.setAttribute("type", "tel");
     PhoneInput.setAttribute("name", "Phone");
     PhoneInput.setAttribute("id", "Phone");
+    PhoneInput.setAttribute("pattern", "(?:7|0\\d|\\+94\\d)\\d{8}");
     PhoneInput.required = true;
     Phone.appendChild(PhoneInput);
+    // Form -> FormMessage
+    const FormMessage = document.createElement("div");
+    FormMessage.setAttribute("class", "FormMessage");
+    Form.appendChild(FormMessage);
     // Footer
     const Footer = document.createElement("div");
     Footer.setAttribute("class", "Footer");
@@ -329,12 +336,16 @@ function displayPopupApplication(id_advertisement) {
     Footer.appendChild(Send);
     $(".Form").submit(function() {
         const Data = $(".Form").serializeArray();
-        $.ajax({type:"POST", url:"../api/application/create.php", data:`id_advertisement=${id_advertisement}&user_firstname=${Data[0].value}&user_name=${Data[1].value}&user_email=${Data[2].value}&user_phone=${Data[3].value}`, dataType: "json", success: function(data) {
-            getAdvertisements();
-            $("body").find(".PopUp").remove();
-            $(".Form").unbind("submit");
+        $.ajax({type:"POST", url:"../api/application/create.php", data:`id_advertisement=${id_advertisement}&&advertisement_name=${advertisement_name}&advertisement_company=${advertisement_company}&user_firstname=${Data[0].value}&user_name=${Data[1].value}&user_email=${Data[2].value}&user_phone=${Data[3].value}`, dataType: "json", success: function(data) {
+            if (data.response) {
+                getAdvertisements();
+                $("body").find(".PopUp").remove();
+                $(".Form").unbind("submit");
+            } else {
+                $(".Form").find(".FormMessage").html(data.message);
+            }
         }, error: function(data) {
-        
+            $(".Form").find(".FormMessage").html(data.responseJSON.message);
         }});
         return false;
     });
@@ -412,9 +423,15 @@ function displayPopupLog(data) {
     PhoneInput.setAttribute("type", "tel");
     PhoneInput.setAttribute("name", "Phone");
     PhoneInput.setAttribute("id", "Phone");
+    PhoneInput.setAttribute("pattern", "(?:7|0\\d|\\+94\\d)\\d{8}");
     PhoneInput.required = true;
     PhoneInput.value = data.user_phone;
     Phone.appendChild(PhoneInput);
+    // Form -> FormMessage
+    const FormMessage = document.createElement("div");
+    FormMessage.setAttribute("class", "FormMessage");
+    FormMessage.innerHTML = "Warning : To change email or password please contact the admin.";
+    Form.appendChild(FormMessage);
     // Footer
     const Footer = document.createElement("div");
     Footer.setAttribute("class", "Footer");
@@ -429,14 +446,17 @@ function displayPopupLog(data) {
         const Data = $(".Form").serializeArray();
         $.ajax({type:"POST", url:"../api/user/update.php", data:`user_firstname=${Data[0].value}&user_name=${Data[1].value}&user_phone=${Data[2].value}`, dataType: "json", success: function(data) {
             if (data.response) {
-                $("body").find(".PopUp").remove();
-                $(".Form").unbind("submit");
-                manageUser({user_firstname: Data[0].value, user_name: Data[1].value, user_phone: Data[2].value});
+                if (data.response) {
+                    $("body").find(".PopUp").remove();
+                    $(".Form").unbind("submit");
+                    manageUser({user_firstname: Data[0].value, user_name: Data[1].value, user_phone: Data[2].value});
+                } else {
+                    $(".Form").find(".FormMessage").html(data.message);
+                }
             }
         }, error: function(data) {
-        
+            $(".Form").find(".FormMessage").html(data.responseJSON.message);
         }});
-        console.log(Data);
         return false;
     });
     // Footer -> Cancel button

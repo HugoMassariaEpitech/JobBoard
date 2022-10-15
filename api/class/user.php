@@ -1,4 +1,6 @@
 <?php
+require "../../vendor/autoload.php";
+use Mailgun\Mailgun;
 class User {
     // Connection
     private $connection;
@@ -15,7 +17,7 @@ class User {
     public function __construct($config) {
         $this->connection = $config;
     }
-    // Read - Fini -
+    // Read
     public function read() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -41,7 +43,7 @@ class User {
             return array("response" => false, "access" => false);
         }
     }
-    // Delete - Fini -
+    // Delete
     public function delete() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -67,7 +69,7 @@ class User {
             return array("response" => false, "access" => false);
         }
     }
-    // Upgrade - Fini -
+    // Upgrade
     public function upgrade() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
@@ -93,7 +95,7 @@ class User {
             return array("response" => false, "access" => false);
         }
     }
-    // Create - Fini -
+    // Create
     public function create() {
         $user = $this->connection->prepare("SELECT * FROM users WHERE user_email = ?");
         $user->bindParam("1", $this->user_email);
@@ -112,6 +114,16 @@ class User {
                     $newUserData = $this->connection->prepare("SELECT * FROM users WHERE user_email = ?");
                     $newUserData->bindParam("1", $this->user_email);
                     if ($newUserData->execute()) {
+                        // Send Email
+                        $mail = Mailgun::create("ed8c9d39611d6e7ac6e11e70fb309fa7-b0ed5083-ac6250a1", "https://api.eu.mailgun.net");
+                        $mail->messages()->send("employme.fr", [
+	                        "from" => "Employ.me <noreply@employme.fr>",
+	                        "to" => $this->user_email,
+	                        "subject" => "Successfully registered !",
+	                        "template" => "registered",
+	                        "h:X-Mailgun-Variables" => sprintf('{"user_firstname": "%s", "user_name": "%s"}', $this->user_firstname, $this->user_name)
+                        ]);
+                        // Set JWT
                         $newUserDataResult = $newUserData->fetch();
                         $header = json_encode(["tokenType" => "JWT", "algorithm" => "HS256"]);
                         $payload = json_encode(["id_user" => $newUserDataResult["id_user"], "user_firstname" => $this->user_firstname, "user_name" => $this->user_name, "user_birthdate" => $this->user_birthdate, "user_phone" => $this->user_phone, "user_email" => $this->user_email, "admin" => "0"]);
@@ -134,7 +146,7 @@ class User {
             return array("response" => false);
         }
     }
-    // Update - Fini -
+    // Update
     public function update() {
         if (isset($_COOKIE["token"])) {
             $tokenParts = explode(".", $_COOKIE["token"]);
