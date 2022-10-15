@@ -76,3 +76,7 @@ Admin | identifiant | mot de passe
 ------------ | ------------ | -------------
 Gmail | epitech.employme@gmail.com | epitechpremscemployme
 Employ.me | epitech.employme@gmail.com | Azerty12345
+
+
+Un mail est envoyé à l'email utilisé pendant l'inscription pour confirmer que l'utilisateur est inscrit, il se trouve généralement dans les __spams__.
+La base de données est dans le .sql du repository GIT, il faut __créer une schéma "job_board" et y injecter le script du .sql pour pouvoir utiliser le site__.
