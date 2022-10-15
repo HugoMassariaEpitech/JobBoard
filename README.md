@@ -1,6 +1,8 @@
 # T-WEB-501-LIL-5-1-jobboard-hugo.massaria
 
-# Readme du Projet Job-Board fait par Hugo Massaria et Elies Hariate
+# Employ.me
+
+<img src="./README/assets/Logo.png" width="300">
 
 ## Description du projet 
 
@@ -14,14 +16,63 @@ A chaque postulation d'un utilisateur à une offre, l'administrateur devait rece
 
 ## Nos fonctionnalités :
 
-- Inscription et Connexion :
+### Admin :
 
-- Update du compte utilisateur :
+* Création/Modification/Suppression d'une offre
 
-- Création/Modification/Suppression d'une offre :
+<img src="./README/assets/admin/advertisements.png" width="500">
 
-- Postulation à une offre avec ou sans connexion :
+* Upgrade/Suppression du compte utilisateur
 
-- Upgrade/Suppression du compte utilisateur :
+<img src="./README/assets/admin/users.png" width="500">
 
-- Suppression d'une postulation :
+* Suppression d'une postulation
+
+<img src="./README/assets/admin/applications.png" width="500">
+
+### Utilisateur :
+
+* Inscription et Connexion
+
+<img src="./README/assets/connexion/register.png" width="500">
+
+<img src="./README/assets/connexion/connexion.png" width="500">
+
+* Modification de ses données utilisateur
+
+<img src="./README/assets/users/update.png" width="500">
+
+<br>
+
+<div style="color: red">Attention : l'utilisateur ne peut pas modifier son adresse mail et son mot de passe. Pour cela, il doit contacter l'administrateur.</div>
+
+<br>
+
+* Postulation à une offre avec ou sans connexion
+
+<img src="./README/assets/users/application_login.png" width="500">
+
+<img src="./README/assets/users/application_logout.png" width="500">
+
+<br>
+
+**À chaque nouvelle postulation, un email est envoyé à l'administrateur pour l'en informer (cf. Données utiles) et à l'utilisateur pour lui confirmer sa candidature.**
+
+## Les langages utilisés :
+
+* PHP (Backend)
+
+* JS (Frontend)
+
+* HTML
+
+* CSS
+
+Aucun framework n'a été utilisé par la réalisation de ce site.
+
+## Données utiles
+
+Admin | identifiant | mot de passe
+------------ | ------------ | -------------
+Gmail | epitech.employme@gmail.com | epitechpremscemployme
+Employ.me | epitech.employme@gmail.com | Azerty12345
